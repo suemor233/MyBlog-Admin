@@ -2,26 +2,21 @@ name: build
 on:
   push:
     branches:
-      - master # 这里表示push到main分支就会触发流程
+      - main # 这里表示push到main分支就会触发流程
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04
     steps:
       # 这是github官方的一个action，用于clone该仓库的源码到工作流中，
       - name: Checkout 🛎️
-        uses: actions/checkout@master
-
-      - name:
-        uses: action/setup-node@v1
+        uses: actions/checkout@v2
         with:
-          node-version: 14.0.0
+          persist-credentials: false
 
-      - name: 安装
-        run: pnpm install
-
-      - name: 打包
-        run: pnpm run build
-
+      - name: Build
+        run: |
+          pnpm install  # 安装依赖
+          pnpm run build  # 执行打包
 
       # 连接到ssh，并且做一个拷贝操作的action
       - name: Deploy 🚀
