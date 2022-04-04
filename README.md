@@ -1,19 +1,4 @@
-# Vite Vue3 TSX Template
+## 采用Vue3+TSX编写的MyBlog后台管理系统,目前正在开发中。。
+[博客前端仓库地址](https://github.com/Elmge/MyBlog) 采用react+next+typescript+antd
 
-This template provide toolchain below:
-
-- Vite
-- Vue3
-- TSX
-- ESLint
-- Prettier
-- Sass
-- VueX
-- Router
-
-# Usage
-
-```sh
-pnpm i
-pnpm dev
-```
+[博客后端仓库地址](https://github.com/Elmge/MyBlog-Server) 采用nestjs+typescript+prisma+mysql
