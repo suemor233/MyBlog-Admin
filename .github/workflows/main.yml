@@ -9,15 +9,19 @@ jobs:
     steps:
       # 这是github官方的一个action，用于clone该仓库的源码到工作流中，
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+        uses: actions/checkout@master
 
-      - name: Build
-        run: |
-          cd MyBlog-Admin # 进入项目目录
-          pnpm install  # 安装依赖
-          pnpm run build  # 执行打包
+      - name:
+        uses: action/setup-node@v1
+        widh:
+          node-version: 14.0.0
+
+      - name: 安装
+        run: pnpm install
+
+      - name: 打包
+        run: pnpm run build
+
 
       # 连接到ssh，并且做一个拷贝操作的action
       - name: Deploy 🚀
