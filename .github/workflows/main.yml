@@ -13,7 +13,7 @@ jobs:
 
       - name:
         uses: action/setup-node@v1
-        widh:
+        with:
           node-version: 14.0.0
 
       - name: 安装
