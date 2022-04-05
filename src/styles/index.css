@@ -1,0 +1,41 @@
+body,
+html {
+  margin: 0;
+  font-size: 14px;
+  padding: 0;
+  background-color: #fafafa;
+  font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+
+  @apply overflow-hidden;
+}
+
+a {
+  @apply text-primary-default;
+  text-decoration: none;
+}
+
+a:hover {
+  @apply text-primary-shallow;
+}
+
+button:focus,
+button {
+  outline: unset;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb:hover {
+
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 5px;
+}

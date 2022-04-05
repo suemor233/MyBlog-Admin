@@ -9,7 +9,7 @@ import {
 const routes: RouteRecordRaw[] = [
     {
         path: "/",
-        redirect: "/login",
+        redirect: "/Login",
     },
     {
         path: "/home",
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/Home"),
     },
     {
-        path: "/login",
+        path: "/Login",
         name: "login",
         meta: {
             type: "login",
@@ -48,13 +48,13 @@ router.beforeEach(
 
         // const user = localStorage.getItem("user");
         //
-        // if (to.meta.type === "login" && user) {
+        // if (to.meta.type === "Login" && user) {
         //     next({ name: "home" });
         //     return;
         // }
         //
         // if (to.meta.type === "home" && !user) {
-        //     next({ name: "login" });
+        //     next({ name: "Login" });
         //     return;
         // }
 
