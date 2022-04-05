@@ -19,16 +19,17 @@ jobs:
           npm run build  # 执行打包
 
       # 连接到ssh，并且做一个拷贝操作的action
-      - name: Deploy 🚀
-        uses: AEnterprise/rsync-deploy@v1.0
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v2.0.8
         env:
-          DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }} # use pre-configured secret (the private key)
-          ARGS: -avz --delete # must have this variable
-          SERVER_PORT: "22" # SSH port
-          FOLDER: ./dist/*
-          SERVER_IP: ${{ secrets.DR_HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
-          USERNAME: ${{ secrets.DR_USER }} # use pre-configured ssh_username value
-          SERVER_DESTINATION: /home/www/blogAdmin/ # put your repo files on this directory of the remote server
+            SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            REMOTE_HOST: ${{ secrets.DR_HOST }}
+            REMOTE_USER: ${{ secrets.DR_USER }}
+            SOURCE: './dist/*'
+            TARGET: '/home/www/blogAdmin/'
+            ARGS: '-avzr --delete'
+
+
 
 
 
