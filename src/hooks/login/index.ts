@@ -3,6 +3,7 @@ import {FormInst, FormRules, useMessage} from "naive-ui";
 import {login} from "@/api/modules/user";
 import {IAxios} from "@/typings/axiosCode";
 import {useRouter} from "vue-router";
+import {setToken} from "@/utils/auth";
 
 function useUser() {
 
@@ -44,6 +45,8 @@ function useUser() {
                 return
             }
             (window as any).$message.success('登录成功')
+
+            setToken(res.data,8)
             await router.push('/dashboard')
         })
     }
