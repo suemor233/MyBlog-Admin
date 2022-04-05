@@ -18,16 +18,18 @@ jobs:
           npm install  # 安装依赖
           npm run build  # 执行打包
 
-      # 连接到ssh，并且做一个拷贝操作的action
+
       - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@v2.0.8
+        uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            ARGS: "-rltgoDzvO --delete"
+            SOURCE: "dist/"
             REMOTE_HOST: ${{ secrets.DR_HOST }}
             REMOTE_USER: ${{ secrets.DR_USER }}
-            SOURCE: './dist/*'
-            TARGET: '/home/www/blogAdmin/'
-            ARGS: '-avzr --delete'
+            TARGET: "/home/www/blogAdmin"
+
+
 
 
 
