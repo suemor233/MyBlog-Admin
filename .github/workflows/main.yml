@@ -22,13 +22,13 @@ jobs:
       - name: Deploy 🚀
         uses: cross-the-world/scp-pipeline@master
         env:
-          WELCOME: "ssh scp ssh pipelines"
-          LASTSSH: "Doing something after copying"
-        with:
-          host: ${{ secrets.DR_HOST }}
-          user: ${{ secrets.DR_USER }}
-          pass: ${{ secrets.DR_PASS }}
-          connect_timeout: 10s
-          local: './dist/*' # 这里是下一步要创建的vue项目构建完成后的静态资源路径
-          remote: /home/ubuntu/blogAdmin # 这里是 step1 中，在服务器上创建用于存放静态资源的文件夹
+          DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }} # use pre-configured secret (the private key)
+          ARGS: -avz --delete # must have this variable
+          SERVER_PORT: "22" # SSH port
+          FOLDER: ./dist/*
+          SERVER_IP: ${{ secrets.DR_HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
+          USERNAME: ${{ secrets.DR_USER }} # use pre-configured ssh_username value
+          SERVER_DESTINATION: /home/www/blogAdmin/ # put your repo files on this directory of the remote server
+
+
 
