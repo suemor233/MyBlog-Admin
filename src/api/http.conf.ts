@@ -1,18 +1,18 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios"
 import {TIP} from "@/common/tip";
+import {useMessage} from "naive-ui";
 
 /* http请求响应状态 */
 type ResponseType = Promise<AxiosResponse>
 
 const instance: AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL as string,
+    baseURL: import.meta.env.VITE_API_BASE_URL as string,
     timeout: 5000,
     withCredentials: true
 })
 
 /* 请求拦截 */
 instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
-
     const headers = AxiosRequestConfig.headers
 
     return AxiosRequestConfig

@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/Login"),
     },
     {
+        path: "/dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/Dashboard"),
+    },
+    {
         path: "/:pathMatch(.*)*",
         name: "404",
         component: () => import("@/views/404"),

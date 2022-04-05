@@ -2,57 +2,21 @@ import {defineComponent, reactive, ref} from 'vue'
 import classes from "./index.module.scss"
 import {bgUrl} from '@/constants/env'
 import {
-    FormInst, FormItemRule,
-    FormRules,
     NButton,
-    NCard,
     NForm,
     NFormItem,
-    NGradientText,
-    NInput,
-    NSpace,
-    useMessage
+    NInput, useMessage,
 } from "naive-ui";
+import {useUser} from "@/hooks";
 
 
 export default defineComponent({
     name: 'Login',
     setup(props, ctx) {
-        const message = useMessage()
-        const user = reactive({
-            username: '',
-            password: ''
-        })
 
+        (window as any).$message = useMessage()
+        const {formRef,user,rules,handleValidateButtonClick} = useUser()
 
-        const formRef = ref<FormInst | null>(null)
-
-        const rules: FormRules = {
-            username: [
-                {
-                    required: true,
-                    message: '请输入用户名'
-                }
-            ],
-            password: [
-                {
-                    required: true,
-                    message: '请输入密码'
-                }
-            ],
-        }
-
-        const handleValidateButtonClick = (e:MouseEvent)=>{
-            e.preventDefault()
-            formRef.value?.validate((errors) => {
-                if (!errors) {
-                    message.success('登录成功')
-                } else {
-                    console.log(errors)
-                    message.error('验证失败')
-                }
-            })
-        }
         return () => (
             <>
                 <div class={classes.bg} style={{backgroundImage: `url(${bgUrl})`}}>
@@ -79,10 +43,3 @@ export default defineComponent({
         );
     }
 })
-
-
-interface ModelType {
-    age: string | null
-    password: string | null
-    reenteredPassword: string | null
-}
