@@ -1,7 +1,19 @@
 import {defineComponent, reactive, ref} from 'vue'
 import classes from "./index.module.scss"
 import {bgUrl} from '@/constants/env'
-import {FormInst, NButton, NCard, NForm, NFormItem, NGradientText, NInput, NSpace, useMessage} from "naive-ui";
+import {
+    FormInst, FormItemRule,
+    FormRules,
+    NButton,
+    NCard,
+    NForm,
+    NFormItem,
+    NGradientText,
+    NInput,
+    NSpace,
+    useMessage
+} from "naive-ui";
+
 
 export default defineComponent({
     name: 'Login',
@@ -14,6 +26,21 @@ export default defineComponent({
 
 
         const formRef = ref<FormInst | null>(null)
+
+        const rules: FormRules = {
+            username: [
+                {
+                    required: true,
+                    message: '请输入用户名'
+                }
+            ],
+            password: [
+                {
+                    required: true,
+                    message: '请输入密码'
+                }
+            ],
+        }
 
         const handleValidateButtonClick = (e:MouseEvent)=>{
             e.preventDefault()
@@ -33,13 +60,13 @@ export default defineComponent({
                         <div class={classes.title}>
                             <span class={classes.spanTitle}>登录</span>
                         </div>
-                        <NForm ref={formRef} model={user}>
+                        <NForm ref={formRef} model={user} rules={rules}>
                             <NFormItem path={'username'} label={'用户名'} labelStyle='color: #fff'>
-                                <NInput v-model:value={user.username}/>
+                                <NInput v-model:value={user.username} placeholder={'请输入用户名'}/>
                             </NFormItem>
 
                             <NFormItem path={'password'} label={'密码'} labelStyle='color: #fff'>
-                                <NInput type={'password'} v-model:value={user.password}/>
+                                <NInput type={'password'} v-model:value={user.password} placeholder={'请输入密码'}/>
                             </NFormItem>
                         </NForm>
                         <div style="display: flex; justify-content: center">
@@ -52,3 +79,10 @@ export default defineComponent({
         );
     }
 })
+
+
+interface ModelType {
+    age: string | null
+    password: string | null
+    reenteredPassword: string | null
+}
