@@ -22,8 +22,8 @@ pnpm dev
 # 截图
 
 <p align="middle">
-<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image1.jpg" width="1000" alt="界面1" />
-<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image2.jpg" width="1000" alt="界面2" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image3.jpg" width="1000" alt="界面1" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image4.jpg" width="1000" alt="界面2" />
 </p>
 
 [博客前端仓库地址](https://github.com/Elmge/MyBlog) 采用react+next+typescript+antd
