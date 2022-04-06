@@ -1,5 +1,5 @@
 import {defineComponent, onMounted} from 'vue'
-import {NLoadingBarProvider, NMessageProvider} from "naive-ui";
+import {NConfigProvider, NLoadingBarProvider, NMessageProvider} from "naive-ui";
 import "./styles/App.css"
 
 export default defineComponent({
@@ -7,11 +7,15 @@ export default defineComponent({
     setup(props, ctx) {
         return () => (
             <div>
+                <NConfigProvider theme-overrides="{ common: { fontWeightStrong: '600' } }">
                     <NMessageProvider>
                         <NLoadingBarProvider>
                             <router-view/>
                         </NLoadingBarProvider>
                     </NMessageProvider>
+                </NConfigProvider>
+
+
             </div>
 
 

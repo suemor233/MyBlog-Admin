@@ -7,7 +7,7 @@ const qprogress = new QProgress()
 router.beforeEach( async (to) => {
   qprogress.start()
   if (to.meta.isPublic) {
-    return
+
   } else {
     const {success} = await checkLogined() as IAxios
     if (!success){

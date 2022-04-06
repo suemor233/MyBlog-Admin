@@ -1,17 +1,17 @@
 import {RouteRecordRaw} from "vue-router";
 import {RouteName} from "@/router/name";
-import Login from "@/views/Login";
+import {SidebarLayout} from "@/layouts/sidebarLayout";
+import Dashboard from "@/views/Dashboard";
 
 
 export const routeForMenu: Array<RouteRecordRaw> = [
     {
         path: '/dashboard',
-        component: import("@/views/Dashboard"),
+        component: Dashboard,
         name: RouteName.Dashboard,
         meta: {
             title: '仪表盘',
         },
-
     }
 
 ]
@@ -19,17 +19,17 @@ export const routeForMenu: Array<RouteRecordRaw> = [
 export const routes: RouteRecordRaw[] = [
     {
         path: '/',
+        component: SidebarLayout,
         name: RouteName.Home,
-        component: import("@/views/Dashboard"),
         redirect: '/dashboard',
         children: [...routeForMenu],
     },
 
     {
-        path: "/Login",
+        path: "/login",
         name: RouteName.Login,
         meta: { isPublic: true, title: '登陆' },
-        component: () => Login,
+        component: () => import("@/views/Login"),
     },
     {
         path: "/:pathMatch(.*)*",

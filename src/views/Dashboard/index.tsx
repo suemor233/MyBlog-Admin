@@ -1,11 +1,14 @@
 import {defineComponent} from 'vue'
+import {ContentLayout} from "@/layouts/content";
 
 export default defineComponent({
     name: 'Dashboard',
     setup(props, ctx) {
         return () => (
             <>
-                <h1>Dashboard</h1>
+                <ContentLayout>
+                    <h1>我是DashBoard</h1>
+                </ContentLayout>
             </>
         );
     }
