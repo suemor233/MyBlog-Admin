@@ -14,8 +14,8 @@ import {useRoute} from "vue-router";
 export default defineComponent({
     name: 'Login',
     setup(props, ctx) {
-
         (window as any).$message = useMessage();
+
         const {formRef,user,rules,handleValidateButtonClick} = useUser()
 
         return () => (

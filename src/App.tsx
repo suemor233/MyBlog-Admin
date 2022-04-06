@@ -1,5 +1,5 @@
 import {defineComponent, onMounted} from 'vue'
-import {NConfigProvider, NLoadingBarProvider, NMessageProvider} from "naive-ui";
+import {NConfigProvider, NLoadingBarProvider, NMessageProvider, useMessage} from "naive-ui";
 import "./styles/App.css"
 
 export default defineComponent({
