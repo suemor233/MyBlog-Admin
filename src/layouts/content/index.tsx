@@ -28,7 +28,7 @@ export const ContentLayout = defineComponent({
 
           <div>
           <NLayoutHeader style={{background:'#FAFAFC'}}>
-              <h1>仪表盘</h1>
+
           </NLayoutHeader>
           <NLayoutContent style={{background:'#FAFAFC'}}>
               {slots.default?.()}
