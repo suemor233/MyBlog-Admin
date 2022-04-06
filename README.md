@@ -19,7 +19,7 @@ pnpm i
 pnpm dev
 ```
 
-#截图
+# 截图
 
 <p align="middle">
 <img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image1.jpg" width="1000" alt="界面1" />
