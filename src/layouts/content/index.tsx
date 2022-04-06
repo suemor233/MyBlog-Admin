@@ -25,15 +25,17 @@ export const ContentLayout = defineComponent({
 
     return () => (
       <>
-        <NLayoutHeader>
-          <h1>仪表盘</h1>
-        </NLayoutHeader>
-        <NLayoutContent>
-          {slots.default?.()}
-        </NLayoutContent>
-        <NLayoutFooter>
-          <p>footer</p>
-        </NLayoutFooter>
+
+          <div>
+          <NLayoutHeader style={{background:'#FAFAFC'}}>
+              <h1>仪表盘</h1>
+          </NLayoutHeader>
+          <NLayoutContent style={{background:'#FAFAFC'}}>
+              {slots.default?.()}
+          </NLayoutContent>
+          </div>
+
+
       </>
     )
   },

@@ -7,6 +7,8 @@ import Sidebar from "@/components/sidebar";
 import {userInfo} from "@/api/modules/user";
 import {useUser} from "@/hooks";
 import {IAxios} from "@/typings/axiosCode";
+import classes from "./index.module.scss";
+
 export const SidebarLayout = defineComponent({
   name: 'SidebarLayout',
 
@@ -21,11 +23,11 @@ export const SidebarLayout = defineComponent({
       })
 
       return () => (
-        <NSpace vertical size="large" >
-            <NLayout has-sider style={{position:'fixed',top:'0',left:'0',bottom:'0',right:'0'}}>
+        <NSpace vertical size="large">
+            <NLayout class={classes.nLayout} has-sider>
                     <Sidebar/>
-                <NLayout style={{paddingLeft:'24px'}}>
-                    <$RouterView />
+                <NLayout class={classes.nRouter}>
+                    <$RouterView/>
                 </NLayout>
             </NLayout>
         </NSpace>

@@ -14,7 +14,7 @@ export default defineComponent({
         return () => (
             <>
                 <ContentLayout>
-                    <NButton onClick={()=>{removeToken(),router.push('/Login')}}>dashboard exit login</NButton>
+                    <NButton onClick={()=>{removeToken();router.push('/Login')}}>dashboard exit login</NButton>
                 </ContentLayout>
             </>
         );

@@ -2,6 +2,7 @@ import {RouteRecordRaw} from "vue-router";
 import {RouteName} from "@/router/name";
 import {SidebarLayout} from "@/layouts/sidebarLayout";
 import Dashboard from "@/views/Dashboard";
+import $RouterView from "@/layouts/router-view";
 
 
 export const routeForMenu: Array<RouteRecordRaw> = [
@@ -12,7 +13,48 @@ export const routeForMenu: Array<RouteRecordRaw> = [
         meta: {
             title: '仪表盘',
         },
-    }
+    },
+    {
+        path: '/posts',
+        name: RouteName.Post,
+        meta: {
+            title: '博文',
+        },
+        redirect: '/posts/view',
+        component: $RouterView,
+        children: [
+            {
+                path: 'view',
+                name: RouteName.View,
+                meta: {
+                    title: '管理',
+                    query: {page: 1},
+                },
+                component: () =>
+                    import('../views/manage-posts/list')
+            },
+            {
+                path: 'edit',
+                name: RouteName.Edit,
+                meta: {
+                    title: '撰写',
+                },
+                props: true,
+                component: () => import('../views/manage-posts/write'),
+            },
+
+            {
+                path: 'category',
+                name: RouteName.Category,
+                meta: {
+                    title: '分类 / 标签',
+                },
+                component: () =>
+                    import('../views/manage-posts/category')
+            },
+        ],
+    },
+
 
 ]
 
@@ -28,13 +70,13 @@ export const routes: RouteRecordRaw[] = [
     {
         path: "/Login",
         name: RouteName.Login,
-        meta: { isPublic: true, title: '登陆' },
+        meta: {isPublic: true, title: '登陆'},
         component: () => import("@/views/Login"),
     },
     {
         path: "/:pathMatch(.*)*",
         name: "404",
-        meta: { isPublic: true },
+        meta: {isPublic: true},
         redirect: '/',
     },
 ];
