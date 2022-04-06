@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios"
 import {TIP} from "@/common/tip";
-
+import QProgress from 'qier-progress'
+const qprogress = new QProgress()
 /* http请求响应状态 */
 type ResponseType = Promise<AxiosResponse>
 
@@ -13,7 +14,7 @@ const instance: AxiosInstance = axios.create({
 /* 请求拦截 */
 instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
     const headers = AxiosRequestConfig.headers;
-    (window as any).$Loading.start()
+    qprogress.start()
     return AxiosRequestConfig
 }, (reason) => {
 
@@ -24,10 +25,10 @@ instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
 instance.interceptors.response.use((AxiosResponse: AxiosResponse) => {
     const { url } = AxiosResponse.config
     const { data, headers } = AxiosResponse;
-    (window as any).$Loading.finish()
+    qprogress.finish()
     return data
 }, (reason) => {
-    (window as any).$Loading.error()
+    qprogress.finish()
     Promise.reject(new Error(reason))
 })
 

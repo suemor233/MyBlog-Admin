@@ -7,13 +7,11 @@ export default defineComponent({
     setup(props, ctx) {
         return () => (
             <div>
-                <n-config-provider theme-overrides="{ common: { fontWeightStrong: '600' } }">
                     <NMessageProvider>
                         <NLoadingBarProvider>
                             <router-view/>
                         </NLoadingBarProvider>
                     </NMessageProvider>
-                </n-config-provider>
             </div>
 
 

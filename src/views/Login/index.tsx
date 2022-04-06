@@ -15,7 +15,6 @@ export default defineComponent({
     setup(props, ctx) {
 
         (window as any).$message = useMessage();
-        (window as any).$Loading = useLoadingBar()
         const {formRef,user,rules,handleValidateButtonClick} = useUser()
 
         return () => (
