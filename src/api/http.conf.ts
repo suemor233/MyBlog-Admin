@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios"
 import {TIP} from "@/common/tip";
 import QProgress from 'qier-progress'
+import {getToken} from "@/utils/auth";
 const qprogress = new QProgress()
 /* http请求响应状态 */
 type ResponseType = Promise<AxiosResponse>
@@ -12,10 +13,13 @@ const instance: AxiosInstance = axios.create({
 })
 
 /* 请求拦截 */
-instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
-    const headers = AxiosRequestConfig.headers;
+instance.interceptors.request.use((config: AxiosRequestConfig) => {
+    const headers = config.headers;
     qprogress.start()
-    return AxiosRequestConfig
+    if (getToken() && headers){
+        headers['Authorization'] = 'Bearer ' + getToken()
+    }
+    return config
 }, (reason) => {
 
     Promise.reject(new Error(reason))
