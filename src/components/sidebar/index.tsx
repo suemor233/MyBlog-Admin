@@ -13,8 +13,9 @@ export default defineComponent({
         const route = useRoute()
         const store = useStore()
         const {menuOptions,handleUpdateValue} = useSideBar()
-        const collapsed = ref(false)
         const isLargeScreen = useMediaQuery('(min-width: 770px)')
+        const collapsed = ref(!isLargeScreen.value)
+
         watch(isLargeScreen,()=>{
             collapsed.value = !isLargeScreen.value
         })
