@@ -1,9 +1,10 @@
-import {defineComponent,ref} from 'vue'
+import {defineComponent, ref, watch} from 'vue'
 import { NLayoutSider, NMenu} from "naive-ui";
 import {RouterLink, useRoute, useRouter} from "vue-router";
 import classes from "./index.module.scss";
 import {useStore} from "vuex";
 import useSideBar from "@/hooks/SiderBar";
+import {useMediaQuery} from "@vueuse/core";
 
 export default defineComponent({
     name: 'SideBar',
@@ -13,7 +14,10 @@ export default defineComponent({
         const store = useStore()
         const {menuOptions,handleUpdateValue} = useSideBar()
         const collapsed = ref(false)
-
+        const isLargeScreen = useMediaQuery('(min-width: 770px)')
+        watch(isLargeScreen,()=>{
+            collapsed.value = !isLargeScreen.value
+        })
         return () => (
             <>
                 <NLayoutSider
