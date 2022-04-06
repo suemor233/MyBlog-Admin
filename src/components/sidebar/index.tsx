@@ -154,6 +154,7 @@ export default defineComponent({
                     onCollapse={() => collapsed.value = true}
                     onExpand={() => collapsed.value = false}
                     style={{backgroundColor: '#E7F5EE', height: '100%'}}
+                    class={classes.side}
                 >
 
                     <div class={classes.avatar}>

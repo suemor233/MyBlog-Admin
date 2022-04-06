@@ -1,30 +1,39 @@
-.avatar{
-  text-align: center;
-  padding-top: 1rem;
+.side{
+  //background: #E7F5EE;
+  background-color: #e0eae0;
+  background-image: linear-gradient(330deg, #e0eae0 0%, #deeee7 100%);
 
 
-  @-webkit-keyframes rotation{
-  from {-webkit-transform: rotate(0deg);}
-  to {-webkit-transform: rotate(360deg);}
-}
 
-  p{
-    font-size: 1.8rem;
-    margin: 0px;
-    color: #459D88;
-    cursor: pointer;
-  }
-  .ImgAvatar{
+  .avatar{
+    text-align: center;
+    padding-top: 1rem;
 
-    border-radius: 50%;
-    cursor: pointer;
-    &:hover{
-      -webkit-transform: rotate(360deg);
-      animation: rotation .5s linear 1;
-      -moz-animation: rotation .5s linear 1;
-      -webkit-animation: rotation .5s linear 1;
-      -o-animation: rotation .5s linear 1;
+
+    @-webkit-keyframes rotation{
+      from {-webkit-transform: rotate(0deg);}
+      to {-webkit-transform: rotate(360deg);}
     }
-  }
 
+    p{
+      font-size: 1.8rem;
+      margin: 0px;
+      color: #6bb09c;
+      cursor: pointer;
+    }
+    .ImgAvatar{
+
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover{
+        -webkit-transform: rotate(360deg);
+        animation: rotation .5s linear 1;
+        -moz-animation: rotation .5s linear 1;
+        -webkit-animation: rotation .5s linear 1;
+        -o-animation: rotation .5s linear 1;
+      }
+    }
+
+  }
 }
+
