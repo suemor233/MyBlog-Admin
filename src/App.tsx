@@ -1,4 +1,4 @@
-import {defineComponent} from 'vue'
+import {defineComponent, onMounted} from 'vue'
 import {NLoadingBarProvider, NMessageProvider} from "naive-ui";
 import "./styles/App.css"
 

@@ -4,10 +4,14 @@ import {login} from "@/api/modules/user";
 import {IAxios} from "@/typings/axiosCode";
 import {useRouter} from "vue-router";
 import {setToken} from "@/utils/auth";
+import {useStore} from "vuex";
+import {SET_USER} from "@/store/user/actionTypes";
+import {IUser} from "@/typings/user";
 
 function useUser() {
 
     const router = useRouter()
+    const store = useStore()
 
     const user = reactive({
         username: '',
@@ -44,18 +48,24 @@ function useUser() {
                 (window as any).$message.error(res.data.error)
                 return
             }
-            (window as any).$message.success('登录成功')
 
-            setToken(res.data,8)
+            setUser(res.data);
+            (window as any).$message.success('登录成功')
+            setToken(res.data.token,8)
+            console.log(store.state.user)
             await router.push('/dashboard')
         })
     }
 
+    const setUser = (user:IUser) => {
+        store.dispatch(SET_USER,user)
+    }
 
     return {
         formRef,
         user,
         rules,
+        setUser,
         handleValidateButtonClick
     }
 

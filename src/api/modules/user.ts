@@ -9,3 +9,8 @@ export function checkLogined() {
     return get('/user/checklogined')
 }
 
+export function userInfo() {
+    return get('/user/info')
+}
+
+

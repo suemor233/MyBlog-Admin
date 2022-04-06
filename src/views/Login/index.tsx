@@ -1,6 +1,6 @@
 import {defineComponent, reactive, ref} from 'vue'
 import classes from "./index.module.scss"
-import {bgUrl} from '@/constants/env'
+import {bgUrl} from '@/utils/env'
 import {
     NButton,
     NForm,
@@ -8,6 +8,7 @@ import {
     NInput, useLoadingBar, useMessage,
 } from "naive-ui";
 import {useUser} from "@/hooks";
+import {useRoute} from "vue-router";
 
 
 export default defineComponent({
