@@ -1,5 +1,5 @@
 
-import { NLayoutContent } from 'naive-ui'
+import {NLayoutContent, NLayoutFooter, NLayoutHeader} from 'naive-ui'
 import {
   computed,
   defineComponent,
@@ -25,13 +25,15 @@ export const ContentLayout = defineComponent({
 
     return () => (
       <>
+        <NLayoutHeader>
+          <h1>仪表盘</h1>
+        </NLayoutHeader>
         <NLayoutContent>
-          <header >
-              <h1>header</h1>
-          </header>
+          {slots.default?.()}
         </NLayoutContent>
-        <main>{slots.default?.()}</main>
-        <p>footer</p>
+        <NLayoutFooter>
+          <p>footer</p>
+        </NLayoutFooter>
       </>
     )
   },

@@ -15,7 +15,7 @@ router.beforeEach( async (to) => {
     const {success} = await checkLogined() as IAxios
     if (!success){
       removeToken()
-      return '/login'
+      return '/Login'
     }
   }
 })

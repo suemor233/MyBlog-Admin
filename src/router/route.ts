@@ -26,7 +26,7 @@ export const routes: RouteRecordRaw[] = [
     },
 
     {
-        path: "/login",
+        path: "/Login",
         name: RouteName.Login,
         meta: { isPublic: true, title: '登陆' },
         component: () => import("@/views/Login"),
