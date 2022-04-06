@@ -5,7 +5,7 @@ import {
     NButton,
     NForm,
     NFormItem,
-    NInput, useMessage,
+    NInput, useLoadingBar, useMessage,
 } from "naive-ui";
 import {useUser} from "@/hooks";
 
@@ -14,13 +14,14 @@ export default defineComponent({
     name: 'Login',
     setup(props, ctx) {
 
-        (window as any).$message = useMessage()
+        (window as any).$message = useMessage();
+        (window as any).$Loading = useLoadingBar()
         const {formRef,user,rules,handleValidateButtonClick} = useUser()
 
         return () => (
             <>
                 <div class={classes.bg} style={{backgroundImage: `url(${bgUrl})`}}>
-                    <div class={classes.main}>
+                    <div class={[classes.main,'animate__animated animate__fadeIn'].join(' ')}>
                         <div class={classes.title}>
                             <span class={classes.spanTitle}>登录</span>
                         </div>

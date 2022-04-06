@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios"
 import {TIP} from "@/common/tip";
-import {useMessage} from "naive-ui";
 
 /* http请求响应状态 */
 type ResponseType = Promise<AxiosResponse>
@@ -13,8 +12,8 @@ const instance: AxiosInstance = axios.create({
 
 /* 请求拦截 */
 instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
-    const headers = AxiosRequestConfig.headers
-
+    const headers = AxiosRequestConfig.headers;
+    (window as any).$Loading.start()
     return AxiosRequestConfig
 }, (reason) => {
 
@@ -24,11 +23,11 @@ instance.interceptors.request.use((AxiosRequestConfig: AxiosRequestConfig) => {
 /* 响应拦截 */
 instance.interceptors.response.use((AxiosResponse: AxiosResponse) => {
     const { url } = AxiosResponse.config
-    const { data, headers } = AxiosResponse
-
+    const { data, headers } = AxiosResponse;
+    (window as any).$Loading.finish()
     return data
 }, (reason) => {
-
+    (window as any).$Loading.error()
     Promise.reject(new Error(reason))
 })
 
