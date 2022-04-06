@@ -52,7 +52,6 @@ function useUser() {
             setUser(res.data);
             (window as any).$message.success('登录成功')
             setToken(res.data.token,8)
-            console.log(store.state.user)
             await router.push('/dashboard')
         })
     }
