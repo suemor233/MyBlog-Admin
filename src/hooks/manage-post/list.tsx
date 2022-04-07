@@ -4,9 +4,10 @@ import MyPopconfirm from "@/components/MyPopconfirm";
 import {article} from "@/api/modules/article";
 import {IAxios} from "@/typings/axiosCode";
 import {parseDate, relativeTimeFromNow} from "@/utils/time";
+import MyArticleTime from "@/components/MyArticleTime";
 
 
-function useArticleList(data:Article[]) {
+function useArticleList(data: Article[]) {
     const message = useMessage()
 
     const createColumns = (): DataTableColumns<Article> => {
@@ -28,19 +29,29 @@ function useArticleList(data:Article[]) {
             },
             {
                 title: '创建时间',
-                key: 'createAtNow'
+                key: 'createAtNow',
+                render(row) {
+                    return h(
+                        <MyArticleTime time={{time:row.createAt,timeNow:row.createAtNow}} />
+                    )
+                }
             },
             {
                 title: '修改时间',
-                key: 'updateAtNow'
+                key: 'updateAtNow',
+                render(row) {
+                    return h(
+                        <MyArticleTime time={{time:row.updateAt,timeNow:row.updateAtNow}} />
+                    )
+                }
             },
             {
                 title: '操作',
                 key: 'actions',
                 render(row) {
                     return h(
-                        <MyPopconfirm row={row} getArticle={getArticle} />
-                )
+                        <MyPopconfirm row={row} getArticle={getArticle}/>
+                    )
                 }
             }
         ]
@@ -63,7 +74,7 @@ function useArticleList(data:Article[]) {
         }
     }
 
-    return{
+    return {
         createColumns,
         getArticle,
         data

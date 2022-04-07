@@ -10,3 +10,9 @@ interface Article {
     cover: string
     id: string
 }
+
+
+interface ITime{
+    time:String
+    timeNow:String
+}
