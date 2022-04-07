@@ -6,11 +6,13 @@ import {IArticle, IAxios} from "@/typings/axiosCode";
 import {parseDate, relativeTimeFromNow} from "@/utils/time";
 import MyArticleTime from "@/components/MyArticleTime";
 import {Add12Regular, Delete24Regular} from "@vicons/fluent";
+import {useRouter} from "vue-router";
+import {RouteName} from "@/router/name";
 
 
 function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string[]>>) {
     const message = useMessage()
-
+    const router = useRouter()
     const createColumns = (): DataTableColumns<Article> => {
         return [
             {
@@ -18,7 +20,12 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
             },
             {
                 title: '标题',
-                key: 'title'
+                key: 'title',
+                render(row) {
+                    return h(
+                        <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
+                    )
+                }
             },
             {
                 title: '分类',

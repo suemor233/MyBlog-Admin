@@ -1,4 +1,4 @@
-import {defineComponent, ref, watch} from 'vue'
+import {computed, ComputedRef, defineComponent, ref, watch} from 'vue'
 import { NLayoutSider, NMenu} from "naive-ui";
 import {RouterLink, useRoute, useRouter} from "vue-router";
 import classes from "./index.module.scss";
@@ -18,6 +18,14 @@ export default defineComponent({
 
         watch(isLargeScreen,()=>{
             collapsed.value = !isLargeScreen.value
+        })
+
+        const fullPathValue:any = computed(()=>{
+            if (route.fullPath.indexOf('?') !== -1){
+                  return route.fullPath.substring(0,route.fullPath.indexOf('?'))
+            }else {
+                  return  route.fullPath
+            }
         })
         return () => (
             <>
@@ -47,7 +55,7 @@ export default defineComponent({
                            collapsedWidth={64}
                            collapsedIconSize={22}
                            onUpdateValue={handleUpdateValue}
-                           value={route.fullPath}
+                           value={fullPathValue}
                     />
                 </NLayoutSider>
 
