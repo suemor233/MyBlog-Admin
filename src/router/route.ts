@@ -27,8 +27,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                 path: 'view',
                 name: RouteName.View,
                 meta: {
-                    title: '管理',
-                    query: {page: 1},
+                    title: '管理'
                 },
                 component: () =>
                     import('../views/manage-posts/list')

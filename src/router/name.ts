@@ -3,7 +3,7 @@ export enum RouteName {
     Dashboard = '/dashboard',
     Home = 'home',
     Post = 'post',
-    View = '/posts/view?page=1',
+    View = '/posts/view',
     Edit = '/posts/edit',
     Category = '/posts/category',
     Note = 'note',
