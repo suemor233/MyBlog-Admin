@@ -7,3 +7,7 @@ export function article() {
 export const DeleteArticleById = (id:string) => {
     return get(`/article/delete/${id}`)
 }
+
+export const DeleteArticles = (ids:string[]) => {
+    return post(`/article/delete`,ids)
+}

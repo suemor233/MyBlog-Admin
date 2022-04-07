@@ -1,6 +1,6 @@
 import $RouterView from '../router-view'
-import {NLayout, NLayoutContent, NLayoutSider, NSpace} from 'naive-ui'
-import {defineComponent, onMounted, ref, watchEffect} from 'vue'
+import {NLayout,NSpace} from 'naive-ui'
+import {defineComponent, onMounted} from 'vue'
 
 
 import Sidebar from "@/components/sidebar";

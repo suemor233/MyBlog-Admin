@@ -19,7 +19,6 @@ export default defineComponent({
                 <NPopover trigger={'hover'}>
                     {{
                         trigger: () => (time.timeNow),
-
                         default: () => time.time
                     }}
 

@@ -1,18 +1,20 @@
-import {defineComponent, h, onMounted, reactive, ref} from 'vue'
+import {computed, defineComponent, onMounted, reactive, ref, watch} from 'vue'
 import {useRoute} from "vue-router";
-import classes from "./index.module.scss";
-import {DataTableColumns, NButton, NDataTable, NPopconfirm, useMessage} from "naive-ui";
-
+import { NButton, NDataTable, NIcon, NSpace} from "naive-ui";
 import {useArticleList} from "@/hooks";
+import {ContentLayout} from "@/layouts/content";
+import {Delete24Regular,Add12Regular} from "@vicons/fluent";
 
 export default defineComponent({
     name: 'list',
     setup(props, ctx) {
-        const route = useRoute()
+
+
         const data = reactive<Article[]>([])
-        const {createColumns,getArticle} = useArticleList(data)
-        const columns = createColumns()
         const checkedRowKeysRef = ref<string[]>([])
+        const {createColumns,getArticle,handleDelete,slots} = useArticleList(data,checkedRowKeysRef)
+        const columns = createColumns()
+
         const handleCheck = (rowKeys:any) => {
             checkedRowKeysRef.value = rowKeys
         }
@@ -22,14 +24,17 @@ export default defineComponent({
 
         return () => (
             <>
-                <p class={classes.title}>{'博文 · ' + route.meta.title}</p>
-                <NDataTable ref={'table'}
-                            columns={columns}
-                            data={data}
-                            pagination={{pageSize: 15}}
-                            rowKey={row => row.id}
-                            onUpdateCheckedRowKeys={handleCheck}
-                />
+
+                <ContentLayout v-slots={slots}>
+                    <NDataTable ref={'table'}
+                                columns={columns}
+                                data={data}
+                                pagination={{pageSize: 15}}
+                                rowKey={row => row.id}
+                                onUpdateCheckedRowKeys={handleCheck}
+                    />
+                </ContentLayout>
+
             </>
         );
     }
