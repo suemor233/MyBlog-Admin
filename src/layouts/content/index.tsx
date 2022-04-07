@@ -25,7 +25,6 @@ export const ContentLayout = defineComponent({
 
     return () => (
       <>
-
           <div>
           <NLayoutHeader style={{background:'#FAFAFC'}}>
 

@@ -38,7 +38,7 @@ export default defineComponent({
                         <img onClick={()=>router.push('/dashboard')} src={store.state.user.avatar} class={classes.ImgAvatar}
                              style={{height: !collapsed.value ? '80px' : '40px'}}/>
                         {
-                            !collapsed.value ? (<p onClick={()=>router.push('/dashboard')}>suemor</p>) : undefined
+                            !collapsed.value ? (<p onClick={()=>router.push('/dashboard')}>{store.state.user.userName}</p>) : undefined
                         }
 
                     </div>
