@@ -26,6 +26,11 @@ pnpm dev
 <img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image5.jpg" width="1000" alt="界面2" />
 </p>
 
+# Reference
+项目参考了 [mx-admin](https://github.com/mx-space/mx-admin)
+
+# 补充
+
 [博客前端仓库地址](https://github.com/Elmge/MyBlog) 采用react+next+typescript+antd
 
 [博客后端仓库地址](https://github.com/Elmge/MyBlog-Server) 采用nestjs+typescript+prisma+mysql
