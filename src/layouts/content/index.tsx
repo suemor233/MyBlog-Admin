@@ -14,13 +14,17 @@ export const ContentLayout = defineComponent({
         actionsElement: {
             type: Object as PropType<JSX.Element | null>,
             required: false,
+        },
+        title:{
+            type: String,
+            required: false,
         }
     },
     setup(props, ctx) {
         const {slots} = ctx
         const router = useRouter()
         const route = computed(() => router.currentRoute)
-
+        const {title} = props
         const pageTitle = computed(
             () =>
                 route.value.value.matched.reduce(
@@ -39,7 +43,7 @@ export const ContentLayout = defineComponent({
         return () => (
             <>
                 <NLayoutHeader class={classes.MyBk}>
-                    <span class={classes.title}>{pageTitle.value}</span>
+                    <span class={classes.title}>{title ? title : pageTitle.value}</span>
                     <Header class={classes.header}>{ slots.header?.()}</Header>
                 </NLayoutHeader>
                 <NLayoutContent class={classes.MyBk}>

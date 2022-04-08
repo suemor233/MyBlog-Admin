@@ -29,8 +29,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                 meta: {
                     title: '管理'
                 },
-                component: () =>
-                    import('../views/manage-posts/list')
+                component: () => import('../views/manage-posts/list')
             },
             {
                 path: 'edit',
@@ -46,7 +45,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                 path: 'category',
                 name: RouteName.Category,
                 meta: {
-                    title: '分类 / 标签',
+                    title: '分类',
                 },
                 component: () =>
                     import('../views/manage-posts/category')
