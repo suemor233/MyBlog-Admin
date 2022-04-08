@@ -1,5 +1,5 @@
 import {DataTableColumns, NButton, NIcon, NSpace, useMessage} from "naive-ui";
-import {h, reactive, Ref, UnwrapRef} from "vue";
+import {h, reactive, Ref, UnwrapRef, watch} from "vue";
 import MyPopconfirm from "@/components/MyPopconfirm";
 import {article, DeleteArticleById, DeleteArticles} from "@/api/modules/article";
 import {IArticle, IAxios} from "@/typings/axiosCode";
@@ -8,61 +8,98 @@ import MyArticleTime from "@/components/MyArticleTime";
 import {Add12Regular, Delete24Regular} from "@vicons/fluent";
 import {useRouter} from "vue-router";
 import {RouteName} from "@/router/name";
+import {useMediaQuery} from "@vueuse/core";
 
 
 function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string[]>>) {
     const message = useMessage()
     const router = useRouter()
+    const isLargeScreen = useMediaQuery('(min-width: 550px)')
+
+
+
     const createColumns = (): DataTableColumns<Article> => {
-        return [
-            {
-                type: 'selection'
-            },
-            {
-                title: '标题',
-                key: 'title',
-                render(row) {
-                    return h(
-                        <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
-                    )
+        //我是fw
+        if (window.outerWidth > 600){
+            return [
+                {
+                    type: 'selection'
+                },
+                {
+                    title: '标题',
+                    key: 'title',
+                    sorter:'default',
+                    render(row) {
+                        return h(
+                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
+                        )
+                    }
+                },
+                {
+                    title: '分类',
+                    key: 'category'
+                },
+                {
+                    title: '标签',
+                    key: 'tags'
+                },
+                {
+                    title: '创建时间',
+                    key: 'createAtNow',
+                    sorter:(row1, row2) => row2.createAt.localeCompare(row1.createAt),
+                    render(row) {
+                        return h(
+                            <MyArticleTime time={{time:row.createAt,timeNow:row.createAtNow}} />
+                        )
+                    }
+                },
+                {
+                    title: '修改时间',
+                    key: 'updateAtNow',
+                    sorter:'default',
+                    render(row) {
+                        return h(
+                            <MyArticleTime time={{time:row.updateAt,timeNow:row.updateAtNow}} />
+                        )
+                    }
+                },
+                {
+                    title: '操作',
+                    key: 'actions',
+                    render(row) {
+                        return h(
+                            <MyPopconfirm row={row} getArticle={getArticle}/>
+                        )
+                    }
                 }
-            },
-            {
-                title: '分类',
-                key: 'category'
-            },
-            {
-                title: '标签',
-                key: 'tags'
-            },
-            {
-                title: '创建时间',
-                key: 'createAtNow',
-                render(row) {
-                    return h(
-                        <MyArticleTime time={{time:row.createAt,timeNow:row.createAtNow}} />
-                    )
+            ]
+        }else {
+            return [
+                {
+                    type: 'selection'
+                },
+                {
+                    title: '标题',
+                    key: 'title',
+                    sorter:'default',
+                    render(row) {
+                        return h(
+                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
+                        )
+                    }
+                },
+                {
+                    title: '操作',
+                    key: 'actions',
+                    render(row) {
+                        return h(
+                            <MyPopconfirm row={row} getArticle={getArticle}/>
+                        )
+                    }
                 }
-            },
-            {
-                title: '修改时间',
-                key: 'updateAtNow',
-                render(row) {
-                    return h(
-                        <MyArticleTime time={{time:row.updateAt,timeNow:row.updateAtNow}} />
-                    )
-                }
-            },
-            {
-                title: '操作',
-                key: 'actions',
-                render(row) {
-                    return h(
-                        <MyPopconfirm row={row} getArticle={getArticle}/>
-                    )
-                }
-            }
-        ]
+            ]
+        }
+
     }
 
     const getArticle = async () => {
@@ -85,16 +122,19 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
     const slots = {
         header: () => (
             <NSpace>
-                <NButton disabled={checkedRowKeysRef.value.length === 0} secondary round type={'error'} onClick={handleDelete}>
-                    {{
-                        icon: () => (
-                            <NIcon>
-                                <Delete24Regular/>
-                            </NIcon>
-                        ),
-                        default: () => `删除选中`
-                    }}
-                </NButton>
+                {
+                    isLargeScreen.value ?<NButton disabled={checkedRowKeysRef.value.length === 0} secondary round type={'error'} onClick={handleDelete}>
+                        {{
+                            icon: () => (
+                                <NIcon>
+                                    <Delete24Regular/>
+                                </NIcon>
+                            ),
+                            default: () => `删除选中`
+                        }}
+                    </NButton> : null
+                }
+
                 <NButton secondary round type={'primary'}>
                     {{
                         icon: () => (

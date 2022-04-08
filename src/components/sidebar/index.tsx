@@ -13,7 +13,7 @@ export default defineComponent({
         const route = useRoute()
         const store = useStore()
         const {menuOptions,handleUpdateValue} = useSideBar()
-        const isLargeScreen = useMediaQuery('(min-width: 770px)')
+        const isLargeScreen = useMediaQuery('(min-width: 960px)')
         const collapsed = ref(!isLargeScreen.value)
 
         watch(isLargeScreen,()=>{

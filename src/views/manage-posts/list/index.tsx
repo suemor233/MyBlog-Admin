@@ -1,9 +1,10 @@
 import {computed, defineComponent, onMounted, reactive, ref, watch} from 'vue'
 import {useRoute} from "vue-router";
-import { NButton, NDataTable, NIcon, NSpace} from "naive-ui";
+import {DataTableColumns, NButton, NDataTable, NIcon, NSpace} from "naive-ui";
 import {useArticleList} from "@/hooks";
 import {ContentLayout} from "@/layouts/content";
 import {Delete24Regular,Add12Regular} from "@vicons/fluent";
+import {useMediaQuery} from "@vueuse/core";
 
 export default defineComponent({
     name: 'list',
@@ -11,8 +12,9 @@ export default defineComponent({
 
 
         const data = reactive<Article[]>([])
+
         const checkedRowKeysRef = ref<string[]>([])
-        const {createColumns,getArticle,handleDelete,slots} = useArticleList(data,checkedRowKeysRef)
+        const {createColumns,getArticle,slots} = useArticleList(data,checkedRowKeysRef)
         const columns = createColumns()
 
         const handleCheck = (rowKeys:any) => {
@@ -21,6 +23,7 @@ export default defineComponent({
         onMounted(()=>{
             getArticle()
         })
+
 
         return () => (
             <>

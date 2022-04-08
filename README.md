@@ -23,13 +23,14 @@ pnpm dev
 
 <p align="middle">
 <img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image4.jpg" width="1000" alt="界面1" />
-<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image5.jpg" width="1000" alt="界面2" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image6.jpg" width="1000" alt="界面2" />
 </p>
 
 # Reference
 项目参考了 [mx-admin](https://github.com/mx-space/mx-admin)
 
 # 补充
+**此博客只能算是个小demo，功能极不完善，请勿线上使用！！！**
 
 [博客前端仓库地址](https://github.com/Elmge/MyBlog) 采用react+next+typescript+antd
 
