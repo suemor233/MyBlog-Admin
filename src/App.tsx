@@ -7,7 +7,7 @@ export default defineComponent({
     name: 'App',
     setup(props, ctx) {
         return () => (
-                <NConfigProvider theme-overrides="{ common: { fontWeightStrong: '600' } }">
+                <NConfigProvider themeOverrides={{'common': { 'fontWeightStrong': '600' }}}>
                     <NMessageProvider>
                         <NLoadingBarProvider>
                             <router-view/>

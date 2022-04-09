@@ -6,6 +6,7 @@ import classes from "@/views/manage-posts/write/index.module.scss";
 
 export default defineComponent({
     name: 'MyArticleDialog',
+    emits: ["handleValidateButtonClick"],
     props:{
         articleForm:{
             type: Object as PropType<IArticleForm>,

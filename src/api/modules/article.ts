@@ -11,3 +11,8 @@ export const DeleteArticleById = (id:string) => {
 export const DeleteArticles = (ids:string[]) => {
     return post(`/article/delete`,ids)
 }
+
+
+export const AddArticle = (article:IArticleForm) => {
+    return post(`/article`,article)
+}

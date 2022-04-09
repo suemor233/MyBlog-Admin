@@ -21,7 +21,7 @@ interface ITime{
 interface IArticleForm {
     title: string
     category: string
-    tags: string[]
+    tags: string[] | string
     modalOpen:boolean
     content:string
 }

@@ -1,5 +1,5 @@
 import {computed, ComputedRef, defineComponent, ref, watch} from 'vue'
-import { NLayoutSider, NMenu} from "naive-ui";
+import {NLayoutSider, NMenu} from "naive-ui";
 import {RouterLink, useRoute, useRouter} from "vue-router";
 import classes from "./index.module.scss";
 import {useStore} from "vuex";
@@ -12,19 +12,19 @@ export default defineComponent({
         const router = useRouter()
         const route = useRoute()
         const store = useStore()
-        const {menuOptions,handleUpdateValue} = useSideBar()
+        const {menuOptions, handleUpdateValue} = useSideBar()
         const isLargeScreen = useMediaQuery('(min-width: 960px)')
         const collapsed = ref(!isLargeScreen.value)
 
-        watch(isLargeScreen,()=>{
+        watch(isLargeScreen, () => {
             collapsed.value = !isLargeScreen.value
         })
 
-        const fullPathValue:any = computed(()=>{
-            if (route.fullPath.indexOf('?') !== -1){
-                  return route.fullPath.substring(0,route.fullPath.indexOf('?'))
-            }else {
-                  return  route.fullPath
+        const fullPathValue: any = computed(() => {
+            if (route.fullPath.indexOf('?') !== -1) {
+                return route.fullPath.substring(0, route.fullPath.indexOf('?'))
+            } else {
+                return route.fullPath
             }
         })
         return () => (
@@ -43,10 +43,12 @@ export default defineComponent({
                 >
 
                     <div class={classes.avatar}>
-                        <img onClick={()=>router.push('/dashboard')} src={store.state.user.avatar} class={classes.ImgAvatar}
+                        <img onClick={() => router.push('/dashboard')} src={store.state.user.avatar}
+                             class={classes.ImgAvatar}
                              style={{height: !collapsed.value ? '80px' : '40px'}}/>
                         {
-                            !collapsed.value ? (<p onClick={()=>router.push('/dashboard')}>{store.state.user.userName}</p>) : undefined
+                            !collapsed.value ? (
+                                <p onClick={() => router.push('/dashboard')}>{store.state.user.userName}</p>) : undefined
                         }
 
                     </div>
@@ -55,7 +57,7 @@ export default defineComponent({
                            collapsedWidth={64}
                            collapsedIconSize={22}
                            onUpdateValue={handleUpdateValue}
-                           value={fullPathValue}
+                           value={fullPathValue.value}
                     />
                 </NLayoutSider>
 

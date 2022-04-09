@@ -2,16 +2,18 @@ import {defineComponent, onMounted, reactive, ref} from 'vue'
 import classes from "./index.module.scss";
 
 import {ContentLayout} from "@/layouts/content";
-import useArticleWrite from "@/hooks/manage-post/write";
 import {useRouter} from "vue-router";
 import {
-    FormInst,
-    NInput,
+    FormInst, NButton, NIcon,
+    NInput, NSpace,
     useMessage
 } from "naive-ui";
 import MyEditor from "@/components/MyEditor";
 
 import MyArticleDialog from "@/components/MyArticleDialog";
+import {AddArticle} from "@/api/modules/article";
+import {IAxios} from "@/typings/axiosCode";
+import {Add12Regular, Save16Regular} from "@vicons/fluent";
 
 
 
@@ -25,14 +27,12 @@ export default defineComponent({
         const toast = useMessage()
         const formRef = ref<FormInst | null>(null)
         const handleSave = ()=>{
-            // if (!text.value){
-            //     toast.error('不能保存空文章哦～')
-            //     return
-            // }
+            if (!articleForm.content){
+                toast.error('不能保存空文章哦～')
+                return
+            }
             articleForm.modalOpen = true
-            // toast.success('保存成功')
         }
-        const {slots} = useArticleWrite(handleSave)
 
         const articleForm = reactive<IArticleForm>({
             title: '',
@@ -51,10 +51,46 @@ export default defineComponent({
                 if (errors) {
                     return
                 }
+                const _articleForm = JSON.parse(JSON.stringify(articleForm))
+                _articleForm.tags =  _articleForm.tags.toString()
+                const res = await AddArticle(_articleForm) as IAxios
+
+                if (!res.success){
+                    toast.error(res.data.error || '服务器异常')
+                    return
+                }
                 articleForm.modalOpen = false
                 toast.success('保存成功')
             })
         }
+
+
+        const slots = {
+            header: () => (
+                <NSpace>
+                    <NButton secondary round type={'info'} onClick={handleSave}>
+                        {{
+                            icon: () => (
+                                <NIcon>
+                                    <Save16Regular/>
+                                </NIcon>
+                            ),
+                            default: () => `保存`
+                        }}
+                    </NButton>
+                    <NButton secondary round type={'primary'} onClick={handleSave}>
+                        {{
+                            icon: () => (
+                                <NIcon>
+                                    <Add12Regular/>
+                                </NIcon>
+                            ),
+                            default: () => `发布文章`
+                        }}
+                    </NButton>
+                </NSpace>
+            )
+        };
 
 
         return () => (
