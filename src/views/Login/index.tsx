@@ -27,11 +27,11 @@ export default defineComponent({
                         </div>
                         <NForm ref={formRef} model={user} rules={rules}>
                             <NFormItem path={'username'} label={'用户名'} labelStyle='color: #fff'>
-                                <NInput  v-model:value={user.username} placeholder={'请输入用户名'}/>
+                                <NInput  v-model:value={user.username} placeholder={'请输入用户名'} />
                             </NFormItem>
 
                             <NFormItem path={'password'} label={'密码'} labelStyle='color: #fff'>
-                                <NInput type={'password'} v-model:value={user.password} placeholder={'请输入密码'}/>
+                                <NInput type={'password'} v-model:value={user.password} placeholder={'请输入密码'} onKeyup={(e:any) => e.key === 'Enter' ? handleValidateButtonClick(e) : ''} />
                             </NFormItem>
                         </NForm>
                         <div style="display: flex; justify-content: center">

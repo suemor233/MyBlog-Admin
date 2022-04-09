@@ -16,3 +16,14 @@ interface ITime{
     time:String
     timeNow:String
 }
+
+
+interface IArticleForm {
+    title: string
+    category: string
+    tags: string[]
+    modalOpen:boolean
+    content:string
+}
+
+

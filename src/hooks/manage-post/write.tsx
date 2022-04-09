@@ -1,13 +1,22 @@
 import {NButton, NIcon, NSpace} from "naive-ui";
-import {Add12Regular, Delete24Regular} from "@vicons/fluent";
+import {Add12Regular, Save16Regular} from "@vicons/fluent";
 import {useMediaQuery} from "@vueuse/core";
 
-function useArticleWrite() {
-    const isLargeScreen = useMediaQuery('(min-width: 550px)')
+function useArticleWrite(handleSave: () => void) {
 
     const slots = {
         header: () => (
             <NSpace>
+                <NButton secondary round type={'info'} onClick={handleSave}>
+                    {{
+                        icon: () => (
+                            <NIcon>
+                                <Save16Regular/>
+                            </NIcon>
+                        ),
+                        default: () => `保存`
+                    }}
+                </NButton>
                 <NButton secondary round type={'primary'}>
                     {{
                         icon: () => (
