@@ -22,8 +22,9 @@ pnpm dev
 # 截图
 
 <p align="middle">
-<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image4.jpg" width="1000" alt="界面1" />
-<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image6.jpg" width="1000" alt="界面2" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/image4.jpg" width="1000" alt="登录" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/view.jpg" width="1000" alt="列表" />
+<img src="https://github.com/Elmge/MyBlog-Admin/blob/master/images/edit.jpg" width="1000" alt="撰写" />
 </p>
 
 # Reference
