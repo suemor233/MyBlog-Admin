@@ -1,7 +1,7 @@
-import {DataTableColumns, NButton, NIcon, NSpace, useMessage} from "naive-ui";
-import {h, reactive, Ref, UnwrapRef, watch} from "vue";
+import {DataTableColumns, NButton, NDialogProvider, NDropdown, NIcon, NSpace, useDialog, useMessage} from "naive-ui";
+import {h, reactive, ref, Ref, UnwrapRef, watch} from "vue";
 import MyPopconfirm from "@/components/MyPopconfirm";
-import {article, DeleteArticleById, DeleteArticles} from "@/api/modules/article";
+import {article, ArticleUpdate, DeleteArticleById, DeleteArticles} from "@/api/modules/article";
 import {IArticle, IAxios} from "@/typings/axiosCode";
 import {parseDate, relativeTimeFromNow} from "@/utils/time";
 import MyArticleTime from "@/components/MyArticleTime";
@@ -11,16 +11,16 @@ import {RouteName} from "@/router/name";
 import {useMediaQuery} from "@vueuse/core";
 
 
+
 function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string[]>>) {
     const message = useMessage()
     const router = useRouter()
     const isLargeScreen = useMediaQuery('(min-width: 550px)')
 
 
-
     const createColumns = (): DataTableColumns<Article> => {
         //我是fw
-        if (window.outerWidth > 600){
+        if (window.outerWidth > 600) {
             return [
                 {
                     type: 'selection'
@@ -28,10 +28,12 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                 {
                     title: '标题',
                     key: 'title',
-                    sorter:'default',
+                    sorter: 'default',
                     render(row) {
                         return h(
-                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push({path:'/posts/edit',query:{id:row.id}})}}>{row.title}</span>
+                            <span style={{color: '#18a058', cursor: 'pointer'}} onClick={() => {
+                                router.push({path: '/posts/edit', query: {id: row.id}})
+                            }}>{row.title}</span>
                         )
                     }
                 },
@@ -46,29 +48,63 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                 {
                     title: '创建时间',
                     key: 'createAtNow',
-                    sorter:(row1, row2) => row2.createAt.localeCompare(row1.createAt),
+                    sorter: (row1, row2) => row2.createAt.localeCompare(row1.createAt),
                     render(row) {
                         return h(
-                            <MyArticleTime time={{time:row.createAt,timeNow:row.createAtNow}} />
+                            <MyArticleTime time={{time: row.createAt, timeNow: row.createAtNow}}/>
                         )
                     }
                 },
                 {
                     title: '修改时间',
                     key: 'updateAtNow',
-                    sorter:'default',
+                    sorter: 'default',
                     render(row) {
                         return h(
-                            <MyArticleTime time={{time:row.updateAt,timeNow:row.updateAtNow}} />
+                            <MyArticleTime time={{time: row.updateAt, timeNow: row.updateAtNow}}/>
                         )
                     }
                 },
                 {
                     title: '状态',
                     key: 'state',
+                    sorter: (row1, row2) => Number(row1.state) - Number(row2.state),
                     render(row) {
-                        return h(
-                            <span style={row.state ? {color:'#18a058'} : {color:'#0984e3'}}>{row.state ? '已发布' : '草稿'}</span>
+                        const dialog = useDialog()
+                        const options = [
+                            {
+                                label: !row.state ? '发布此文章' : '下架文章',
+                                key: row.id,
+                            }
+                        ]
+
+                        const handleSelect = async (key: string | number) => {
+                            dialog.warning({
+                                title: '警告',
+                                content: `你确定${!row.state ? '发布' : '下架'}『 ${row.title}  』吗`,
+                                positiveText: '确定',
+                                negativeText: '不确定',
+                                onPositiveClick: async () => {
+                                    const handleArticleState = {
+                                        id: row.id,
+                                        state: !row.state
+                                    }
+                                    const res = await ArticleUpdate(handleArticleState) as IAxios
+                                    if (!res.success) {
+                                        message.error(res.data.error || '服务器异常')
+                                        return
+                                    }
+                                    await getArticle()
+                                    message.success('更改成功')
+                                }
+                            })
+
+                        }
+                        return (
+
+                                <NDropdown trigger={'click'} options={options} onSelect={handleSelect}>
+                                    <span style={row.state ? {color: '#18a058'} : {color: '#0984e3'}}>{row.state ? '已发布' : '草稿'} ▾</span>
+                                </NDropdown>
                         )
                     }
                 },
@@ -82,7 +118,7 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                     }
                 }
             ]
-        }else {
+        } else {
             return [
                 {
                     type: 'selection'
@@ -90,10 +126,12 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                 {
                     title: '标题',
                     key: 'title',
-                    sorter:'default',
+                    sorter: 'default',
                     render(row) {
                         return h(
-                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
+                            <span style={{color: '#18a058', cursor: 'pointer'}} onClick={() => {
+                                router.push(RouteName.Edit + '?id=' + row.id)
+                            }}>{row.title}</span>
                         )
                     }
                 },
@@ -132,16 +170,18 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
         header: () => (
             <NSpace>
                 {
-                    isLargeScreen.value ?<NButton disabled={checkedRowKeysRef.value.length === 0} secondary round type={'error'} onClick={handleDelete}>
-                        {{
-                            icon: () => (
-                                <NIcon>
-                                    <Delete24Regular/>
-                                </NIcon>
-                            ),
-                            default: () => `删除选中`
-                        }}
-                    </NButton> : null
+                    isLargeScreen.value ?
+                        <NButton disabled={checkedRowKeysRef.value.length === 0} secondary round type={'error'}
+                                 onClick={handleDelete}>
+                            {{
+                                icon: () => (
+                                    <NIcon>
+                                        <Delete24Regular/>
+                                    </NIcon>
+                                ),
+                                default: () => `删除选中`
+                            }}
+                        </NButton> : null
                 }
 
                 <NButton secondary round type={'primary'}>
@@ -159,20 +199,20 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
     };
 
 
-    const handleDelete = async ()=>{
-        if (checkedRowKeysRef.value.length === 0){
+    const handleDelete = async () => {
+        if (checkedRowKeysRef.value.length === 0) {
             message.error('这不可能！！！')
             return
         }
-        const res  = await DeleteArticles(checkedRowKeysRef.value) as IArticle
-        if (res.success){
+        const res = await DeleteArticles(checkedRowKeysRef.value) as IArticle
+        if (res.success) {
             message.success('删除成功')
             checkedRowKeysRef.value.length = 0
             //我是傻逼，后端有bug,实在不会搞了。。
-            setTimeout(()=>{
-                 getArticle()
-            },50)
-        }else {
+            setTimeout(() => {
+                getArticle()
+            }, 50)
+        } else {
             message.success(res.data.error || '删除失败')
         }
     }

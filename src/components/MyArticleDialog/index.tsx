@@ -13,11 +13,15 @@ export default defineComponent({
         formRef:{
             type: Object as PropType<Ref<FormInst | null>>,
             required: true,
-        }
+        },
+        modalOpen:{
+            type: Object as PropType<Ref<boolean>>,
+            required: true,
+        },
     },
     setup(props, {emit}) {
 
-        const {articleForm,formRef} = props
+        const {articleForm,formRef,modalOpen} = props
         const rules: FormRules = {
             title: [
                 {
@@ -36,13 +40,13 @@ export default defineComponent({
         return () => (
             <>
                 <NModal
-                    show={articleForm?.modalOpen }
+                    show={modalOpen.value }
                     transformOrigin="center"
                 >
                     <NCard
                         closable
                         onClose={() => {
-                            articleForm.modalOpen = false
+                            modalOpen.value = false
                         }}
                         title="文章设定"
                         bordered={false}

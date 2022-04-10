@@ -32,17 +32,17 @@ export default defineComponent({
                 toast.error('文章不能为空哦～')
                 return
             }
+            isPublic.value = state
             articleForm.state = state
-
-            articleForm.modalOpen = true
+            modalOpen.value = true
 
         }
-
+        const modalOpen = ref(false)
+        const isPublic = ref(false)
         const articleForm = reactive<IArticleForm>({
             title: '',
             category: '',
             tags:[],
-            modalOpen:false,
             content:'',
             state:false
         })
@@ -57,7 +57,6 @@ export default defineComponent({
                 }
                 const _articleForm = JSON.parse(JSON.stringify(articleForm))
                 _articleForm.tags =  _articleForm.tags.toString()
-                delete _articleForm.modalOpen
                 let res
                 if (route.query.id){
                     res = await ArticleUpdate(_articleForm) as IAxios
@@ -69,8 +68,8 @@ export default defineComponent({
                     toast.error(res.data.error || '服务器异常')
                     return
                 }
-                articleForm.modalOpen = false
-                if (articleForm.state){
+                modalOpen.value = false
+                if (isPublic.value){
                     toast.success('发布成功')
                     router.push('/posts/view')
                 }else {
@@ -143,7 +142,7 @@ export default defineComponent({
                         <NInput class={classes.mInput}  v-model:value={articleForm.title} type={'text'} placeholder={'在这里输入主人的文章标题'}/>
                         <MyEditor {...{onHandleSave:handleSave,onHandleText:(msg)=>{articleForm.content = msg}}} />
                     </div>
-                    <MyArticleDialog formRef={formRef} articleForm={articleForm} {...{onHandleValidateButtonClick:handleValidateButtonClick}}/>
+                    <MyArticleDialog modalOpen={modalOpen} formRef={formRef} articleForm={articleForm} {...{onHandleValidateButtonClick:handleValidateButtonClick}}/>
                 </ContentLayout >
             </>
         );

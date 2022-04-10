@@ -20,12 +20,11 @@ interface ITime{
 
 
 interface IArticleForm {
-    title: string
-    category: string
-    tags: string[] | string
-    modalOpen:boolean
-    content:string
-    state:boolean
+    title?: string
+    category?: string
+    tags?: string[] | string
+    content?:string
+    state?:boolean
 }
 
 
