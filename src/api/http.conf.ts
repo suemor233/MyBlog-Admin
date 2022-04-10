@@ -43,6 +43,7 @@ instance.interceptors.response.use((AxiosResponse: AxiosResponse) => {
  * @returns 返回promise
  */
 export function post(url: string, data: object = {}): ResponseType {
+
     return new Promise((resolve, reject) => {
         instance.post(url, data).then(
             response => {

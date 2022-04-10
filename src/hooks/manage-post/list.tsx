@@ -31,7 +31,7 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                     sorter:'default',
                     render(row) {
                         return h(
-                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push(RouteName.Edit + '?id='+ row.id)}}>{row.title}</span>
+                            <span style={{color:'#18a058',cursor:'pointer'}} onClick={()=>{router.push({path:'/posts/edit',query:{id:row.id}})}}>{row.title}</span>
                         )
                     }
                 },
@@ -60,6 +60,15 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                     render(row) {
                         return h(
                             <MyArticleTime time={{time:row.updateAt,timeNow:row.updateAtNow}} />
+                        )
+                    }
+                },
+                {
+                    title: '状态',
+                    key: 'state',
+                    render(row) {
+                        return h(
+                            <span style={row.state ? {color:'#18a058'} : {color:'#0984e3'}}>{row.state ? '已发布' : '草稿'}</span>
                         )
                     }
                 },

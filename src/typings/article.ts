@@ -9,6 +9,7 @@ interface Article {
     content: string
     cover: string
     id: string
+    state:boolean
 }
 
 
@@ -24,6 +25,7 @@ interface IArticleForm {
     tags: string[] | string
     modalOpen:boolean
     content:string
+    state:boolean
 }
 
 

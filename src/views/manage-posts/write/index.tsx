@@ -1,8 +1,8 @@
-import {defineComponent, onMounted, reactive, ref} from 'vue'
+import {defineComponent, onMounted, reactive, ref, watch} from 'vue'
 import classes from "./index.module.scss";
 
 import {ContentLayout} from "@/layouts/content";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {
     FormInst, NButton, NIcon,
     NInput, NSpace,
@@ -11,7 +11,7 @@ import {
 import MyEditor from "@/components/MyEditor";
 
 import MyArticleDialog from "@/components/MyArticleDialog";
-import {AddArticle} from "@/api/modules/article";
+import {AddArticle, ArticleUpdate, GetArticleById} from "@/api/modules/article";
 import {IAxios} from "@/typings/axiosCode";
 import {Add12Regular, Save16Regular} from "@vicons/fluent";
 
@@ -24,14 +24,18 @@ export default defineComponent({
     },
     setup(props, ctx) {
         const router = useRouter()
+        const route = useRoute()
         const toast = useMessage()
         const formRef = ref<FormInst | null>(null)
-        const handleSave = ()=>{
+        const handleSave = (state:boolean)=>{
             if (!articleForm.content){
-                toast.error('不能保存空文章哦～')
+                toast.error('文章不能为空哦～')
                 return
             }
+            articleForm.state = state
+
             articleForm.modalOpen = true
+
         }
 
         const articleForm = reactive<IArticleForm>({
@@ -39,12 +43,12 @@ export default defineComponent({
             category: '',
             tags:[],
             modalOpen:false,
-            content:''
+            content:'',
+            state:false
         })
 
 
         const handleValidateButtonClick = (e:MouseEvent)=>{
-
             e.preventDefault()
 
             formRef.value?.validate(async (errors) => {
@@ -53,44 +57,83 @@ export default defineComponent({
                 }
                 const _articleForm = JSON.parse(JSON.stringify(articleForm))
                 _articleForm.tags =  _articleForm.tags.toString()
-                const res = await AddArticle(_articleForm) as IAxios
+                delete _articleForm.modalOpen
+                let res
+                if (route.query.id){
+                    res = await ArticleUpdate(_articleForm) as IAxios
+                }else {
+                    res = await AddArticle(_articleForm) as IAxios
+                }
 
                 if (!res.success){
                     toast.error(res.data.error || '服务器异常')
                     return
                 }
                 articleForm.modalOpen = false
-                toast.success('保存成功')
+                if (articleForm.state){
+                    toast.success('发布成功')
+                    router.push('/posts/view')
+                }else {
+                    toast.success('保存成功')
+                    router.push({path:'/posts/edit',query:{id:res.data.id}})
+                }
+
             })
         }
+
 
 
         const slots = {
             header: () => (
                 <NSpace>
-                    <NButton secondary round type={'info'} onClick={handleSave}>
-                        {{
-                            icon: () => (
-                                <NIcon>
-                                    <Save16Regular/>
-                                </NIcon>
-                            ),
-                            default: () => `保存`
-                        }}
-                    </NButton>
-                    <NButton secondary round type={'primary'} onClick={handleSave}>
+                    {
+                        !articleForm.state
+                          ? <NButton secondary round type={'info'} onClick={()=>handleSave(false)}>
+                                {{
+                                    icon: () => (
+                                        <NIcon>
+                                            <Save16Regular/>
+                                        </NIcon>
+                                    ),
+                                    default: () => `保存`
+                                }}
+                            </NButton>
+                            : null
+                    }
+
+                    <NButton secondary round type={'primary'} onClick={()=>handleSave(true)}>
                         {{
                             icon: () => (
                                 <NIcon>
                                     <Add12Regular/>
                                 </NIcon>
                             ),
-                            default: () => `发布文章`
+                            default: () =>  !articleForm.state ? `发布文章` : '修改并发布'
                         }}
                     </NButton>
                 </NSpace>
             )
         };
+
+       watch(route,()=>{
+           if (route.fullPath == '/posts/edit'){
+               location.reload()
+           }
+       })
+
+        onMounted(async ()=>{
+            if (route.query.id){
+                const res = await GetArticleById(route.query.id as string) as IAxios
+                if (!res.success || !res.data){
+                    toast.error('文章不存在')
+                    router.push('/posts/edit')
+                    return
+                }
+                res.data.tags =   res.data.tags.split(',')
+                Object.assign(articleForm,res.data)
+            }
+
+        })
 
 
         return () => (

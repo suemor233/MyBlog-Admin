@@ -2,8 +2,6 @@ import {defineComponent, PropType, Ref, watch} from 'vue'
 import {FormInst, FormRules, NButton, NCard, NDynamicTags, NForm, NFormItem, NInput, NModal} from "naive-ui";
 import classes from "@/views/manage-posts/write/index.module.scss";
 
-
-
 export default defineComponent({
     name: 'MyArticleDialog',
     emits: ["handleValidateButtonClick"],
@@ -30,7 +28,7 @@ export default defineComponent({
             category: [
                 {
                     required: true,
-                    message: '请输入密码'
+                    message: '请输入类别'
                 }
             ]
         }
@@ -56,7 +54,7 @@ export default defineComponent({
                                 <NInput v-model:value={articleForm.title} placeholder={'请输入文章的标题'}    />
                             </NFormItem>
 
-                            <NFormItem path={'title'} label={'类名'}>
+                            <NFormItem path={'category'} label={'类名'}>
                                 <NInput  v-model:value={articleForm.category}  placeholder={'请输入文章的分类'}   />
                             </NFormItem>
 

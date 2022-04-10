@@ -16,3 +16,14 @@ export const DeleteArticles = (ids:string[]) => {
 export const AddArticle = (article:IArticleForm) => {
     return post(`/article`,article)
 }
+
+export const GetArticleById = (id:string) => {
+    return get(`/article/${id}`)
+}
+
+export const ArticleUpdate = (article:IArticleForm) => {
+    return post(`/article/update`,article)
+}
+
+
+
