@@ -1,12 +1,12 @@
 import {Commit} from "vuex";
 export interface User {
-    userName: string;
+    username: string;
     password: string;
 }
 
 export interface IUser {
     user:{
-        "userName": string
+        "username": string
         "token": string
         "introduce": string
         "githubUrl": string

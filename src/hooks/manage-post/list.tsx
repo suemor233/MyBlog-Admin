@@ -83,13 +83,10 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
                                 title: '警告',
                                 content: `你确定${!row.state ? '发布' : '下架'}『 ${row.title}  』吗`,
                                 positiveText: '确定',
-                                negativeText: '不确定',
+                                negativeText: '取消',
                                 onPositiveClick: async () => {
-                                    const handleArticleState = {
-                                        id: row.id,
-                                        state: !row.state
-                                    }
-                                    const res = await ArticleUpdate(handleArticleState) as IAxios
+                                    row.state = !row.state
+                                    const res = await ArticleUpdate(row) as IAxios
                                     if (!res.success) {
                                         message.error(res.data.error || '服务器异常')
                                         return
@@ -152,13 +149,15 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
     const getArticle = async () => {
         const res = await article() as IAxios
         data.length = 0
+        console.log(res)
         if (res.success) {
-            const articleData = res.data.article
+            const articleData = res.data
             for (const _articleData of articleData) {
                 _articleData.createAtNow = relativeTimeFromNow(_articleData.createAt)
                 _articleData.updateAtNow = relativeTimeFromNow(_articleData.updateAt)
                 _articleData.createAt = parseDate(_articleData.createAt, 'yyyy年M月d日 HH:mm:ss')
                 _articleData.updateAt = parseDate(_articleData.updateAt, 'yyyy年M月d日 HH:mm:ss')
+                _articleData.category = _articleData.category.name
                 data.push(_articleData)
             }
         } else {

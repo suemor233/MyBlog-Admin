@@ -1,28 +1,28 @@
-import {get, post} from "@/api/http.conf";
+import client from "@/api/umi-request";
 
 export function article() {
-    return get('/article')
+    return client.get('/article')
 }
 
 export const DeleteArticleById = (id:string) => {
-    return get(`/article/delete/${id}`)
+    return client.delete(`/article/${id}`)
 }
 
-export const DeleteArticles = (ids:string[]) => {
-    return post(`/article/delete`,ids)
+export const DeleteArticles = (data:string[]) => {
+    return client.post('/article/delete',{data})
 }
 
 
-export const AddArticle = (article:IArticleForm) => {
-    return post(`/article`,article)
+export const AddArticle = (data:IArticleForm) => {
+    return client.post(`/article`,{data})
 }
 
 export const GetArticleById = (id:string) => {
-    return get(`/article/${id}`)
+    return client.get(`/article/${id}`)
 }
 
-export const ArticleUpdate = (article:IArticleForm) => {
-    return post(`/article/update`,article)
+export const ArticleUpdate = (data:IArticleForm) => {
+    return client.put(`/article/${data.id}`,{data})
 }
 
 

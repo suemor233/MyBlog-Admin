@@ -32,7 +32,6 @@ export default defineComponent({
                 toast.error('文章不能为空哦～')
                 return
             }
-            isPublic.value = state
             articleForm.state = state
             modalOpen.value = true
 
@@ -69,6 +68,9 @@ export default defineComponent({
                     return
                 }
                 modalOpen.value = false
+                console.log(res)
+                isPublic.value = res.data.state
+
                 if (isPublic.value){
                     toast.success('发布成功')
                     router.push('/posts/view')
@@ -86,7 +88,7 @@ export default defineComponent({
             header: () => (
                 <NSpace>
                     {
-                        !articleForm.state
+                        !isPublic.value
                           ? <NButton secondary round type={'info'} onClick={()=>handleSave(false)}>
                                 {{
                                     icon: () => (
@@ -107,7 +109,7 @@ export default defineComponent({
                                     <Add12Regular/>
                                 </NIcon>
                             ),
-                            default: () =>  !articleForm.state ? `发布文章` : '修改并发布'
+                            default: () =>  !isPublic.value ? `发布文章` : '修改并发布'
                         }}
                     </NButton>
                 </NSpace>
@@ -128,8 +130,10 @@ export default defineComponent({
                     router.push('/posts/edit')
                     return
                 }
-                res.data.tags =   res.data.tags.split(',')
+                res.data.tags = res.data.tags.split(',')
+                res.data.category = res.data.category.name
                 Object.assign(articleForm,res.data)
+                isPublic.value = res.data.state
             }
 
         })

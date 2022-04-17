@@ -48,7 +48,7 @@ export default defineComponent({
                              style={{height: !collapsed.value ? '80px' : '40px'}}/>
                         {
                             !collapsed.value ? (
-                                <p onClick={() => router.push('/dashboard')}>{store.state.user.userName}</p>) : undefined
+                                <p onClick={() => router.push('/dashboard')}>{store.state.user.username}</p>) : undefined
                         }
 
                     </div>

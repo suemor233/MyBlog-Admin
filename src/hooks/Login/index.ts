@@ -43,7 +43,7 @@ function useUser() {
                 return
             }
             const {username,password} = user
-            const res = await login({userName:username,password}) as IAxios
+            const res = await login({username,password}) as IAxios
             if (!res.success){
                 (window as any).$message.error(res.data.error)
                 return

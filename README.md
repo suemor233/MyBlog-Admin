@@ -7,10 +7,10 @@
 - TSX
 - ESLint
 - Prettier
-- Sass
+- tailwindcss
 - VueX
 - Router
-- Axios
+- umiRequest
 
 # 使用
 

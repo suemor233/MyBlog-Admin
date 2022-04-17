@@ -1,7 +1,7 @@
 interface Article {
     title: string
-    category: string
-    tags: string
+    category?: string
+    tags?: string[] | string
     createAt: string
     updateAt: string
     createAtNow: string
@@ -12,6 +12,11 @@ interface Article {
     state:boolean
 }
 
+interface ICategory {
+    id:string
+    category:string
+    createAt:string
+}
 
 interface ITime{
     time:String
@@ -20,6 +25,7 @@ interface ITime{
 
 
 interface IArticleForm {
+    id?:string
     title?: string
     category?: string
     tags?: string[] | string

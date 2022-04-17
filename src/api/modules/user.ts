@@ -1,16 +1,16 @@
-import {get, post} from "@/api/http.conf";
+import client from "@/api/umi-request";
 import {User} from "@/typings/user";
 
 export function login(data: User) {
-    return post('/user/Login', data)
+    return client.post('/user/Login', {data})
 }
 
 export function checkLogined() {
-    return get('/user/checklogined')
+    return client.get('/user/check_logged')
 }
 
 export function userInfo() {
-    return get('/user/info')
+    return client.get('/user')
 }
 
 

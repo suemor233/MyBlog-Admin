@@ -9,8 +9,6 @@ import {useMediaQuery} from "@vueuse/core";
 export default defineComponent({
     name: 'list',
     setup(props, ctx) {
-
-
         const data = reactive<Article[]>([])
 
         const checkedRowKeysRef = ref<string[]>([])
@@ -27,7 +25,6 @@ export default defineComponent({
 
         return () => (
             <>
-
                 <ContentLayout v-slots={slots}>
                     <NDataTable ref={'table'}
                                 columns={columns}
