@@ -3,8 +3,7 @@ import {useRoute} from "vue-router";
 import {DataTableColumns, NButton, NDataTable, NIcon, NSpace} from "naive-ui";
 import {useArticleList} from "@/hooks";
 import {ContentLayout} from "@/layouts/content";
-import {Delete24Regular,Add12Regular} from "@vicons/fluent";
-import {useMediaQuery} from "@vueuse/core";
+
 
 export default defineComponent({
     name: 'list',
@@ -33,6 +32,7 @@ export default defineComponent({
                                 rowKey={row => row.id}
                                 onUpdateCheckedRowKeys={handleCheck}
                     />
+                   
                 </ContentLayout>
 
             </>

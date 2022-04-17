@@ -49,21 +49,17 @@ export default defineComponent({
                 />
               </NFormItem>
             </NForm>
-            <div>
-              <NButton
-                onClick={handleValidateButtonClick}
-                block={true}
-                round
-                type="primary"
-                size={'large'}
-                style={{ marginTop: '1rem', fontSize: '1.5rem' }}
+              <button
+                  onClick={handleValidateButtonClick}
+                  class={'btn-green'}
               >
                 登录
-              </NButton>
-            </div>
+              </button>
+
           </div>
         </div>
       </>
     )
   },
 })
+//

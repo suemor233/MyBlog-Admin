@@ -1,6 +1,6 @@
 import {defineComponent, onMounted} from 'vue'
 import {NConfigProvider, NDialogProvider, NLoadingBarProvider, NMessageProvider, useMessage} from "naive-ui";
-import "./styles/App.css"
+
 import {IconConfigProvider} from "@vicons/utils";
 
 export default defineComponent({
