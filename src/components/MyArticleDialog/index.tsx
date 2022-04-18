@@ -62,7 +62,6 @@ export default defineComponent({
                                 <NInput  v-model:value={articleForm.category}  placeholder={'请输入文章的分类'}   />
                             </NFormItem>
 
-
                             <NFormItem path={'tags'} label="标签">
                                 <NDynamicTags v-model:value={articleForm.tags}/>
                             </NFormItem>

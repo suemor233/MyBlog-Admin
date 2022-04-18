@@ -1,13 +1,10 @@
 import {
-  computed,
   defineComponent,
   h,
   onMounted,
-  reactive,
   ref,
-  watch,
 } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import {
   DataTableColumns,
   NButton,
@@ -18,6 +15,7 @@ import {
   useDialog,
   useMessage,
 } from 'naive-ui'
+
 import { ContentLayout } from '@/layouts/content'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
@@ -226,7 +224,6 @@ export default defineComponent({
         message.error('这不可能！！！')
         return
       }
-      //TODO edit
       console.log(checkedRowKeysRef.value)
       const state = appStore.useArticle.deleteManyArticle(
         Array.from(checkedRowKeysRef.value),

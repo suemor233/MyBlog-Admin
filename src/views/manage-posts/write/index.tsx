@@ -14,6 +14,7 @@ import MyArticleDialog from "@/components/MyArticleDialog";
 import {AddArticle, ArticleUpdate, GetArticleById} from "@/api/modules/article";
 import {IAxios} from "@/typings/axiosCode";
 import {Add12Regular, Save16Regular} from "@vicons/fluent";
+import appStore from "@/store";
 
 
 
@@ -124,7 +125,8 @@ export default defineComponent({
 
         onMounted(async ()=>{
             if (route.query.id){
-                const res = await GetArticleById(route.query.id as string) as IAxios
+                const res =  await appStore.useArticle.getArticleById(route.query.id as string)
+
                 if (!res.success || !res.data){
                     toast.error('文章不存在')
                     router.push('/posts/edit')

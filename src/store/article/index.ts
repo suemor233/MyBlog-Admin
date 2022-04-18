@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import {article, ArticleUpdate, DeleteArticleById, DeleteArticles} from '@/api/modules/article'
+import {article, ArticleUpdate, DeleteArticleById, DeleteArticles, GetArticleById} from '@/api/modules/article'
 
 import { parseDate, relativeTimeFromNow } from '@/utils/time'
 import { IArticle, IArticleRequest } from '@/store/article/articleType'
@@ -43,7 +43,6 @@ export const useArticle = defineStore('useArticle', () => {
 
 
   const deleteManyArticle = async (ids:string[])=>{
-    //TODO
     const res = await DeleteArticles(ids) as IArticleRequest
     if (res.success) {
       //我是傻逼，后端有bug,实在不会搞了。。
@@ -57,7 +56,7 @@ export const useArticle = defineStore('useArticle', () => {
   }
 
   const changeArticleState = async (article:IArticle)=>{
-    const res = await ArticleUpdate(article) as IAxios
+    const res = await ArticleUpdate(article) as IArticleRequest
     if (!res.success) {
       return false
     }
@@ -65,11 +64,32 @@ export const useArticle = defineStore('useArticle', () => {
     return true
   }
 
+  const getArticleById = async (id:string)=>{
+    const res = await GetArticleById(id) as IArticleRequest
+    return res
+  }
+
+
+  const updateArticle = async (article:IArticle)=>{
+    const res = await ArticleUpdate(article) as IArticleRequest
+    await articleInfo()
+    return res
+  }
+
+  const createArticle = async (article:IArticle)=>{
+    const res = await ArticleUpdate(article) as IArticleRequest
+    await articleInfo()
+    return res
+  }
+
   return {
     articles,
     articleInfo,
     deleteOneArticle,
     deleteManyArticle,
-    changeArticleState
+    changeArticleState,
+    getArticleById,
+    updateArticle,
+    createArticle
   }
 })
