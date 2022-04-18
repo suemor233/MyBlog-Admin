@@ -4,10 +4,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-
+  height: 100%;
   .nRouter{
-    height: 100%;
+ 
     background:#FAFAFC;
     padding:0px 42px;
+    height: 100vh;
   }
 }
