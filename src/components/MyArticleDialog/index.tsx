@@ -67,7 +67,8 @@ export default defineComponent({
                                 <NDynamicTags v-model:value={articleForm.tags}/>
                             </NFormItem>
                         </NForm>
-                        <NButton secondary onClick={(e)=>emit('handleValidateButtonClick',e)} block={true} round type="primary" size={'large'} style={{marginTop:'1rem',fontSize:'1.5rem'}}>确认</NButton>
+                        {/* <NButton secondary onClick={(e)=>emit('handleValidateButtonClick',e)} block={true} round type="primary" size={'large'} style={{marginTop:'1rem',fontSize:'1.5rem'}}>确认</NButton> */}
+                        <button class={'btn-green opacity-80'} onClick={(e)=>emit('handleValidateButtonClick',e)}>确认</button>
                     </NCard>
                 </NModal>
             </>

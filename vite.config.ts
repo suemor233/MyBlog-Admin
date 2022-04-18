@@ -10,8 +10,8 @@ export default defineConfig({
       vue(),
       vueJsx(),
       Components({
-      resolvers: [NaiveUiResolver()]
-    })
+        resolvers: [NaiveUiResolver()]
+      })
   ],
   server: {
     port:3340,

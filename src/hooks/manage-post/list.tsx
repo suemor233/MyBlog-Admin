@@ -10,8 +10,6 @@ import {useRouter} from "vue-router";
 import {RouteName} from "@/router/name";
 import {useMediaQuery} from "@vueuse/core";
 
-
-
 function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string[]>>) {
     const message = useMessage()
     const router = useRouter()
