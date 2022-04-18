@@ -14,8 +14,5 @@ export interface IArticle{
     updateAt:string,
     createAtNow:string,
     updateAtNow:string,
-    category:{
-        id:string,
-        name:string
-    }
+    category: string
 }

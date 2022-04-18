@@ -22,7 +22,7 @@ export const useUser = defineStore('useUser', () => {
   const userLogin = async() => {
     const res = await login({username:user.username,password:user.password})
     if (!res.success){
-        (window as any).$message.error(res.data.error)
+        (window as any).$message.error(res.data.error || res.data.error[0])
         return false
     }
 
@@ -43,7 +43,6 @@ export const useUser = defineStore('useUser', () => {
         setUser(res.data);
       }
     }
-    console.log(user)
   })()
 
   return {

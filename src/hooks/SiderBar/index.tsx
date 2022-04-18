@@ -6,7 +6,6 @@ import {CategoryOutlined, ManageSearchRound} from "@vicons/material";
 import {Component, h, ref} from "vue";
 import {Icon} from "@vicons/utils";
 import {useRoute, useRouter} from "vue-router";
-import {useStore} from "vuex";
 
 function useSideBar() {
 
