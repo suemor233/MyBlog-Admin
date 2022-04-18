@@ -2,15 +2,12 @@
 
 使用了以下技术
 
-- Vite
 - Vue3
+- Vite
 - TSX
-- ESLint
-- Prettier
-- tailwindcss
-- VueX
-- Router
-- umiRequest
+- Tailwindcss
+- Pinia
+- UmiRequest
 
 # 使用
 

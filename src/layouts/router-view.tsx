@@ -15,7 +15,7 @@ const $RouterView = defineComponent({
                   default: () => Component,
                   fallback() {
                     return (
-                        <div style={{position:'fixed',top:'0',left:'0',bottom:'0',right:'0',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                        <div class={'fixed inset-0 flex justify-center items-center'}>
                           <NSpin strokeWidth={14} show rotate />
                         </div>
                     )

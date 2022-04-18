@@ -18,6 +18,7 @@
     "js-cookie": "^3.0.1",
     "md-editor-v3": "^1.11.6",
     "moment": "^2.29.2",
+    "pinia": "^2.0.13",
     "qier-progress": "^1.0.4",
     "reset-css": "^5.0.1",
     "screenfull": "^6.0.1",

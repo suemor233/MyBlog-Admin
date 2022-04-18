@@ -2,16 +2,15 @@ import {computed, ComputedRef, defineComponent, ref, watch} from 'vue'
 import {NLayoutSider, NMenu} from "naive-ui";
 import {RouterLink, useRoute, useRouter} from "vue-router";
 import classes from "./index.module.scss";
-import {useStore} from "vuex";
 import useSideBar from "@/hooks/SiderBar";
 import {useMediaQuery} from "@vueuse/core";
+import appStore from "@/store";
 
 export default defineComponent({
     name: 'SideBar',
     setup(props, ctx) {
         const router = useRouter()
         const route = useRoute()
-        const store = useStore()
         const {menuOptions, handleUpdateValue} = useSideBar()
         const isLargeScreen = useMediaQuery('(min-width: 960px)')
         const collapsed = ref(!isLargeScreen.value)
@@ -42,12 +41,12 @@ export default defineComponent({
                 >
 
                     <div class={classes.avatar}>
-                        <img onClick={() => router.push('/dashboard')} src={store.state.user.avatar}
+                        <img onClick={() => router.push('/dashboard')} src={appStore.useUser.user.avatar}
                              class={classes.ImgAvatar}
                              style={{height: !collapsed.value ? '80px' : '40px'}}/>
                         {
                             !collapsed.value ? (
-                                <p onClick={() => router.push('/dashboard')}>{store.state.user.username}</p>) : undefined
+                                <p onClick={() => router.push('/dashboard')}>{appStore.useUser.user.username}</p>) : undefined
                         }
 
                     </div>
