@@ -1,7 +1,7 @@
 import client from "@/api/umi-request";
-import {User} from "@/typings/user";
 
-export function login(data: User) {
+
+export function login(data: {username:string,password:string}) {
     return client.post('/user/Login', {data})
 }
 

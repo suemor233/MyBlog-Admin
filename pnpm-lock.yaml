@@ -42,7 +42,6 @@ specifiers:
   vue: ^3.2.25
   vue-router: 4.0.14
   vue-tsc: ^0.29.8
-  vuex: 4.0.2
 
 dependencies:
   '@vueuse/core': 8.2.5_vue@3.2.31
@@ -60,7 +59,6 @@ dependencies:
   umi-request: 1.4.0
   vue: 3.2.31
   vue-router: 4.0.14_vue@3.2.31
-  vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
   '@types/js-cookie': 3.0.1
@@ -3182,15 +3180,6 @@ packages:
       vooks: 0.2.12_vue@3.2.31
       vue: 3.2.31
     dev: true
-
-  /vuex/4.0.2_vue@3.2.31:
-    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
-    peerDependencies:
-      vue: ^3.0.2
-    dependencies:
-      '@vue/devtools-api': 6.1.4
-      vue: 3.2.31
-    dev: false
 
   /webpack-virtual-modules/0.4.3:
     resolution: {integrity: sha512-5NUqC2JquIL2pBAAo/VfBP6KuGkHIZQXW/lNKupLPfhViwh8wNsu0BObtl09yuKZszeEUfbXz8xhrHvSG16Nqw==}

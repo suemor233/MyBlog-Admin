@@ -43,9 +43,8 @@ export const useUser = defineStore('useUser', () => {
         setUser(res.data);
       }
     }
+    console.log(user)
   })()
-
-
 
   return {
     user,

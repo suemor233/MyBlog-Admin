@@ -147,7 +147,6 @@ function useArticleList(data: Article[], checkedRowKeysRef: Ref<UnwrapRef<string
     const getArticle = async () => {
         const res = await article() as IAxios
         data.length = 0
-        console.log(res)
         if (res.success) {
             const articleData = res.data
             for (const _articleData of articleData) {

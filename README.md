@@ -8,6 +8,7 @@
 - Tailwindcss
 - Pinia
 - UmiRequest
+- NaiveUI
 
 # 使用
 
