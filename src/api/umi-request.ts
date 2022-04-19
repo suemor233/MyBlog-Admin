@@ -6,6 +6,7 @@ const qprogress = new QProgress()
 
 
 const errorHandler = function(error:any) {
+    console.log(error,'==')
     const {data = {} } = error;
     return data
 };
@@ -15,7 +16,10 @@ const errorHandler = function(error:any) {
  */
 const client = extend({
     prefix: import.meta.env.VITE_API_BASE_URL as string,
-    timeout: 1000,
+    timeout: 5000,
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
     errorHandler
 })
 
@@ -38,6 +42,7 @@ client.interceptors.request.use((url:string, options:any) => {
 client.interceptors.response.use(async (response:any) => {
 
     const res = await response.clone().json()
+
     qprogress.finish()
     if (!res.success){
         console.log(res)

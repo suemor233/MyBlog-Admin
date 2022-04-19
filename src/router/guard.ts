@@ -31,5 +31,3 @@ router.afterEach((to, _) => {
 router.onError(() => {
   return
 })
-
-function getPageTitle(pageTitle?: string | null) {}

@@ -9,8 +9,6 @@ import appStore from "@/store";
 export const useArticle = defineStore('useArticle', () => {
   const articles = reactive<IArticle[]>([])
 
-
-
   const articleInfo = async () => {
     const res = await article() as IArticleRequest
     articles.length = 0
@@ -79,6 +77,7 @@ export const useArticle = defineStore('useArticle', () => {
     await articleInfo()
     return res
   }
+
 
   return {
     articles,

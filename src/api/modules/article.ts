@@ -25,5 +25,12 @@ export const ArticleUpdate = (data:IArticleForm) => {
     return client.put(`/article/${data.id}`,{data})
 }
 
+export const ArticlePhotoUpload= (data:any) => {
+    return client.post(`/photos`,{data})
+}
+
+
+
+
 
 

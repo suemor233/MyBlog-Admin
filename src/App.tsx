@@ -6,6 +6,7 @@ import {IconConfigProvider} from "@vicons/utils";
 export default defineComponent({
     name: 'App',
     setup(props, ctx) {
+
         return () => (
                 <NConfigProvider themeOverrides={{'common': { 'fontWeightStrong': '600' }}}>
                     <NMessageProvider>
