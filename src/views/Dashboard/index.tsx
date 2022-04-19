@@ -14,7 +14,6 @@ export default defineComponent({
         return () => (
             <>
                 <ContentLayout>
-                    <h1>仪表盘</h1>
                     <NButton onClick={()=>{removeToken();router.push('/Login')}}>dashboard exit login</NButton>
                 </ContentLayout>
             </>

@@ -4,9 +4,7 @@ import {article, ArticleUpdate, DeleteArticleById, DeleteArticles, GetArticleByI
 
 import { parseDate, relativeTimeFromNow } from '@/utils/time'
 import { IArticle, IArticleRequest } from '@/store/article/articleType'
-import { useMessage } from 'naive-ui'
 import appStore from "@/store";
-import {IAxios} from "@/typings/axiosCode";
 
 export const useArticle = defineStore('useArticle', () => {
   const articles = reactive<IArticle[]>([])

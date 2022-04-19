@@ -12,7 +12,6 @@ import MyEditor from "@/components/MyEditor";
 
 import MyArticleDialog from "@/components/MyArticleDialog";
 import {AddArticle, ArticleUpdate, GetArticleById} from "@/api/modules/article";
-import {IAxios} from "@/typings/axiosCode";
 import {Add12Regular, Save16Regular} from "@vicons/fluent";
 import appStore from "@/store";
 
@@ -59,9 +58,9 @@ export default defineComponent({
                 _articleForm.tags =  _articleForm.tags.toString()
                 let res
                 if (route.query.id){
-                    res = await ArticleUpdate(_articleForm) as IAxios
+                    res = await ArticleUpdate(_articleForm) as UmiType
                 }else {
-                    res = await AddArticle(_articleForm) as IAxios
+                    res = await AddArticle(_articleForm) as UmiType
                 }
 
                 if (!res.success){

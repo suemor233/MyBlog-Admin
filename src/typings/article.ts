@@ -12,11 +12,7 @@ interface Article {
     state:boolean
 }
 
-interface ICategory {
-    id:string
-    category:string
-    createAt:string
-}
+
 
 interface ITime{
     time:String

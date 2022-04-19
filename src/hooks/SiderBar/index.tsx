@@ -3,9 +3,9 @@ import {RouteName} from "@/router/name";
 import {DashboardOutlined} from "@vicons/antd";
 import {BookOutline as BookIcon, Pencil} from "@vicons/ionicons5";
 import {CategoryOutlined, ManageSearchRound} from "@vicons/material";
-import {Component, h, ref} from "vue";
+import {Component, h} from "vue";
 import {Icon} from "@vicons/utils";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 
 function useSideBar() {
 
