@@ -205,7 +205,7 @@ export default defineComponent({
             </NButton>
           ) : null}
 
-          <NButton secondary round type={'primary'}>
+          <NButton secondary round type={'primary'} onClick={()=>router.push('/posts/edit')}>
             {{
               icon: () => (
                 <NIcon>
@@ -224,7 +224,6 @@ export default defineComponent({
         message.error('这不可能！！！')
         return
       }
-      console.log(checkedRowKeysRef.value)
       const state = appStore.useArticle.deleteManyArticle(
         Array.from(checkedRowKeysRef.value),
       )

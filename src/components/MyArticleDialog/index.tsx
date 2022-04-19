@@ -1,6 +1,8 @@
-import {defineComponent, PropType, Ref, watch} from 'vue'
-import {FormInst, FormRules, NButton, NCard, NDynamicTags, NForm, NFormItem, NInput, NModal} from "naive-ui";
+import {defineComponent, onMounted, PropType, Ref, watch} from 'vue'
+import {FormInst, FormRules, NButton, NCard, NDynamicTags, NForm, NFormItem, NInput, NModal, NSelect} from "naive-ui";
 import classes from "@/views/manage-posts/write/index.module.scss";
+import appStore from "@/store";
+import {ICategory} from "@/store/category/categoryType";
 
 export default defineComponent({
     name: 'MyArticleDialog',
@@ -20,7 +22,7 @@ export default defineComponent({
         },
     },
     setup(props, {emit}) {
-
+        const options = [] as any
         const {articleForm,formRef,modalOpen} = props
         const rules: FormRules = {
             title: [
@@ -36,6 +38,19 @@ export default defineComponent({
                 }
             ]
         }
+
+
+        onMounted(async ()=>{
+            await appStore.useCategory.categoryInfo()
+            appStore.useCategory.categories.forEach((item:ICategory) =>{
+                options.push({
+                    label: item.name,
+                    value: item.name
+                })
+            })
+        })
+
+
 
         return () => (
             <>
@@ -59,7 +74,8 @@ export default defineComponent({
                             </NFormItem>
 
                             <NFormItem path={'category'} label={'类名'}>
-                                <NInput  v-model:value={articleForm.category}  placeholder={'请输入文章的分类'}   />
+                                {/*<NInput  v-model:value={articleForm.category}  placeholder={'请输入文章的分类'}   />*/}
+                                <NSelect v-model:value={articleForm.category} options={options}/>
                             </NFormItem>
 
                             <NFormItem path={'tags'} label="标签">
@@ -74,3 +90,9 @@ export default defineComponent({
         );
     }
 })
+
+
+interface IOptions {
+    label: string,
+    value: string
+}

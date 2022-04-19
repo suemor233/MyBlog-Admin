@@ -42,7 +42,7 @@ function useSideBar() {
                     icon: renderIcon(Pencil)
                 },
                 {
-                    label: '分类 / 标签',
+                    label: '分类',
                     key: RouteName.Category,
                     icon: renderIcon(CategoryOutlined)
                 }

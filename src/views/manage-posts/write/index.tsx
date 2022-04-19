@@ -40,7 +40,7 @@ export default defineComponent({
         const isPublic = ref(false)
         const articleForm = reactive<IArticleForm>({
             title: '',
-            category: '',
+            category: '默认分类',
             tags:[],
             content:'',
             state:false
