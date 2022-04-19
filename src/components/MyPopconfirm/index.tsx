@@ -1,11 +1,12 @@
 import {defineComponent, PropType} from 'vue'
 import {NButton, NPopconfirm, useMessage} from "naive-ui";
 import appStore from "@/store";
+import {IArticle} from "@/store/article/articleType";
 
 export default defineComponent({
     name: 'MyPopconfirm',
     props: {
-        row: Object as PropType<Article>
+        row: Object as PropType<IArticle>
 
     },
     setup(props, ctx) {

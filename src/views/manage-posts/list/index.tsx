@@ -24,6 +24,7 @@ import MyPopconfirm from '@/components/MyPopconfirm'
 import { RouteName } from '@/router/name'
 import { useMediaQuery } from '@vueuse/core'
 import { Add12Regular, Delete24Regular } from '@vicons/fluent'
+import {IArticle} from "@/store/article/articleType";
 
 export default defineComponent({
   name: 'list',
@@ -36,7 +37,7 @@ export default defineComponent({
     onMounted(async () => {
       await appStore.useArticle.articleInfo()
     })
-    const createColumns = (): DataTableColumns<Article> => {
+    const createColumns = (): DataTableColumns<IArticle> => {
       //我是fw
       if (window.outerWidth > 600) {
         return [

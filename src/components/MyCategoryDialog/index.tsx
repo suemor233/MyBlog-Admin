@@ -33,7 +33,7 @@ export default defineComponent({
     modalOpen: {
       type: Object as PropType<Ref<boolean>>,
       required: true,
-    },
+    }
   },
   setup(props, { emit }) {
     const { modalOpen } = props

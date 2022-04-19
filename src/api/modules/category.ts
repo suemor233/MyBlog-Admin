@@ -7,3 +7,7 @@ export function GetCategoryInfo() {
 export const PostAddCategory = (data:{name:string}) => {
     return client.post('/category',{data})
 }
+
+export const DeleteCategoryById = (id:string) => {
+    return client.delete(`/category/${id}`)
+}
