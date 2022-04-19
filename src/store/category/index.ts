@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import {reactive} from "vue";
 import {ICategory, ICategoryRequest} from '@/store/category/categoryType';
-import {GetCategoryInfo} from "@/api/modules/category";
+import {GetCategoryInfo, PostAddCategory} from "@/api/modules/category";
 
 export const useCategory = defineStore('useCategory', () => {
   const categories = reactive<ICategory[]>([])
@@ -14,8 +14,15 @@ export const useCategory = defineStore('useCategory', () => {
     }
   }
 
+  const AddCategory= async (name:string) => {
+     const res = await PostAddCategory({name}) as ICategoryRequest
+    categoryInfo()
+   return res
+  }
+
   return {
     categoryInfo,
-    categories
+    categories,
+    AddCategory
   }
 })
