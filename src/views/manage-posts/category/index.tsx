@@ -1,5 +1,4 @@
-import { defineComponent, h, onMounted, PropType, Ref, ref } from 'vue'
-
+import {defineComponent, h, onMounted, PropType, Ref, ref, watch} from 'vue'
 import { ContentLayout } from '@/layouts/content'
 import {
   DataTableColumns,
@@ -12,20 +11,18 @@ import {
 } from 'naive-ui'
 import appStore from '@/store'
 import { storeToRefs } from 'pinia'
-import { Add12Regular, Delete24Regular } from '@vicons/fluent'
+import { Add12Regular } from '@vicons/fluent'
 import MyCategoryDialog from '@/components/MyCategoryDialog'
-import MyPopconfirm from '@/components/MyPopconfirm'
 import { ICategory, ICategoryRequest } from '@/store/category/categoryType'
-import { IArticle } from '@/store/article/articleType'
 
 export default defineComponent({
   name: 'category',
-  setup(props, ctx) {
+  async setup(props, ctx) {
     const { categories } = storeToRefs(appStore.useCategory)
-    const message = useMessage()
     const modalOpen = ref(false)
     const checkedRowKeysRef = ref<string[]>([])
-    const createColumns = (): DataTableColumns<ICategory> => {
+    await appStore.useCategory.categoryInfo()
+    const createColumns =  (): DataTableColumns<ICategory> => {
       return [
         {
           title: '分类',
@@ -39,6 +36,7 @@ export default defineComponent({
           title: '操作',
           key: 'actions',
           render(row) {
+            console.log(row,'  category')
             return (
               <MyAction
                 row={row}
@@ -49,7 +47,7 @@ export default defineComponent({
         },
       ]
     }
-    const columns = createColumns()
+    let columns = createColumns()
     const handleCheck = (rowKeys: any) => {
       checkedRowKeysRef.value = rowKeys
     }
@@ -78,9 +76,7 @@ export default defineComponent({
       ),
     }
 
-    onMounted(() => {
-      appStore.useCategory.categoryInfo()
-    })
+
     return () => (
       <>
         <ContentLayout v-slots={slots}>
@@ -92,10 +88,11 @@ export default defineComponent({
             rowKey={(row) => row.id}
             onUpdateCheckedRowKeys={handleCheck}
           />
+          <MyCategoryDialog
+              modalOpen={modalOpen}
+          />
         </ContentLayout>
-        <MyCategoryDialog
-          modalOpen={modalOpen}
-        />
+
       </>
     )
   },
@@ -113,18 +110,22 @@ const MyAction = defineComponent({
   setup(props, ctx) {
     const message = useMessage()
     const { row, modalOpen } = props
+    const { rowCategory } = storeToRefs(appStore.useCategory)
     if (!row) return <h1>表格异常</h1>
-
+    console.log(row,'  action')
     return () => (
       <>
         <NSpace size={12}>
-          //TODO 编辑
           <NButton
             size="tiny"
             text
             type="primary"
             onClick={() => {
-              (modalOpen.value = true)
+              if (row.name === '默认分类') {
+                message.error('默认分类不可修改')
+                return
+              }
+              (Object.assign(rowCategory.value, row),modalOpen.value = true)
             }}
           >
             编辑
@@ -133,11 +134,11 @@ const MyAction = defineComponent({
             positiveText={'删除'}
             negativeText={'取消'}
             onPositiveClick={async () => {
-              //TODO 后端逻辑修改
               if (row.name === '默认分类') {
                 message.error('默认分类不可删除')
                 return
               } else if (row?.count > 0) {
+
                 message.error('请先删除对于文章')
                 return
               }
@@ -147,7 +148,7 @@ const MyAction = defineComponent({
               if (res.success) {
                 message.success('删除成功 ')
               } else {
-                message.error('删除失败')
+                message.error(res.data.error || '删除失败')
               }
             }}
           >

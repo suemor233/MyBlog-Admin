@@ -18,7 +18,8 @@ import {
   NInput,
   NModal,
   NSelect,
-  NSpace, useMessage,
+  NSpace,
+  useMessage,
 } from 'naive-ui'
 import classes from '@/views/manage-posts/write/index.module.scss'
 import appStore from '@/store'
@@ -33,15 +34,19 @@ export default defineComponent({
     modalOpen: {
       type: Object as PropType<Ref<boolean>>,
       required: true,
-    }
+    },
   },
   setup(props, { emit }) {
     const { modalOpen } = props
     const formRef = ref<FormInst | null>(null)
     const toast = useMessage()
-    const category = reactive<{ name: string }>({
-      name: '',
+    const { rowCategory } = storeToRefs(appStore.useCategory)
+    const addUpdateFlag = ref(false)
+    watch(modalOpen, () => {
+       addUpdateFlag.value = rowCategory.value.name
+      !modalOpen.value ? (rowCategory.value.name = '') : null
     })
+
     const rules: FormRules = {
       name: [
         {
@@ -53,21 +58,29 @@ export default defineComponent({
 
     const handleValidateButtonClick = (e: MouseEvent) => {
       e.preventDefault()
-
       formRef.value?.validate(async (errors) => {
         if (errors) {
           return
         }
-        const res = await appStore.useCategory.AddCategory(
-          category.name,
-        ) as ICategoryRequest
-        if (res.success) {
-          toast.success('添加成功')
-          category.name = ''
-          modalOpen.value = false
-        }else {
-          toast.error(res.data.error)
+        if (addUpdateFlag.value) {
+          const res =
+            (await appStore.useCategory.UpdateCategory()) as ICategoryRequest
+          if (res.success) {
+            toast.success('修改成功')
+          } else {
+            toast.error(res.data.error)
+          }
+        } else {
+          const res =
+            (await appStore.useCategory.AddCategory()) as ICategoryRequest
+          if (res.success) {
+            toast.success('添加成功')
+          } else {
+            toast.error(res.data.error)
+          }
         }
+
+        modalOpen.value = false
       })
     }
 
@@ -79,20 +92,20 @@ export default defineComponent({
             onClose={() => {
               modalOpen.value = false
             }}
-            title="添加分类"
+            title="分类"
             bordered={false}
             class={classes.MyCard}
           >
             <NForm
               ref={formRef}
               labelPlacement="left"
-              model={category}
+              model={rowCategory.value}
               rules={rules}
               labelAlign="right"
             >
               <NFormItem path={'name'} label={'分类名称'}>
                 <NInput
-                  v-model:value={category.name}
+                  v-model:value={rowCategory.value.name}
                   placeholder={'请输入文章的标题'}
                 />
               </NFormItem>
@@ -105,8 +118,8 @@ export default defineComponent({
                 取消
               </NButton>
               <NButton
-                  type={'primary'}
-                  onClick={(e) => handleValidateButtonClick(e)}
+                type={'primary'}
+                onClick={(e) => handleValidateButtonClick(e)}
               >
                 确认
               </NButton>
