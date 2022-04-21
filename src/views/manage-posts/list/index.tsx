@@ -28,15 +28,13 @@ import {IArticle} from "@/store/article/articleType";
 
 export default defineComponent({
   name: 'list',
-  setup(props, ctx) {
+  async setup(props, ctx) {
     const { articles } = storeToRefs(appStore.useArticle)
     const checkedRowKeysRef = ref<string[]>([])
     const isLargeScreen = useMediaQuery('(min-width: 550px)')
     const message = useMessage()
     const router = useRouter()
-    onMounted(async () => {
-      await appStore.useArticle.articleInfo()
-    })
+    await appStore.useArticle.articleInfo()
     const createColumns = (): DataTableColumns<IArticle> => {
       //我是fw
       if (window.outerWidth > 600) {

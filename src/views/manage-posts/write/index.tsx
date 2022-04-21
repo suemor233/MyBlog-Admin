@@ -22,7 +22,7 @@ export default defineComponent({
     components:{
         MyEditor
     },
-    setup(props, ctx) {
+    async setup(props, ctx) {
         const router = useRouter()
         const route = useRoute()
         const toast = useMessage()
