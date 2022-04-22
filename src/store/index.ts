@@ -1,6 +1,3 @@
-/**
- * 注册app状态库
- */
 import {useUser} from "@/store/user";
 import {useArticle} from "@/store/article";
 import {useCategory} from "@/store/category";

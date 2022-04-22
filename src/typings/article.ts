@@ -1,6 +1,3 @@
-
-
-
 interface ITime{
     time:String
     timeNow:String
