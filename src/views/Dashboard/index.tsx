@@ -1,10 +1,8 @@
-import {defineComponent, ref} from 'vue'
+import {defineComponent} from 'vue'
 import {ContentLayout} from "@/layouts/content";
-import {userInfo} from "@/api/modules/user";
 import {NButton} from "naive-ui";
 import {removeToken} from "@/utils/auth";
 import {useRouter} from "vue-router";
-import {article} from "@/api/modules/article";
 
 export default defineComponent({
     name: 'Dashboard',

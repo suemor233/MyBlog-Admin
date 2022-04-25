@@ -5,6 +5,5 @@ export enum RouteName {
     Post = 'post',
     View = '/posts/view',
     Edit = '/posts/edit',
-    Category = '/posts/category',
-    Note = 'note',
+    Category = '/posts/category'
 }

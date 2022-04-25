@@ -1,8 +1,5 @@
-import {defineComponent, onMounted} from 'vue'
-import {NConfigProvider, NDialogProvider, NLoadingBarProvider, NMessageProvider, useMessage} from "naive-ui";
-
-import {IconConfigProvider} from "@vicons/utils";
-
+import {defineComponent} from 'vue'
+import {NConfigProvider, NDialogProvider, NLoadingBarProvider, NMessageProvider} from "naive-ui";
 export default defineComponent({
     name: 'App',
     setup(props, ctx) {
